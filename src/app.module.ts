@@ -22,11 +22,11 @@ import config from './config';
       envFilePath: enviroments[process.env.NODE_ENV] || '.env',
       load: [config],
       isGlobal: true,
-      validationSchema: Joi.object({
-        API_KEY: Joi.number().required(),
-        DATABASE_NAME: Joi.string().required(),
-        DATABASE_PORT: Joi.number().required(),
-      }),
+      // validationSchema: Joi.object({
+      //   API_KEY: Joi.number().required(),
+      //   DATABASE_NAME: Joi.string().required(),
+      //   DATABASE_PORT: Joi.number().required(),
+      // }),
     }),
     HttpModule,
     UsersModule,
