@@ -8,6 +8,8 @@ import {
 } from 'typeorm';
 
 import { Persona } from './persona.entity';
+import { Empresa } from './empresa.entity';
+import { Domicilio } from './domicilio.entity';
 
 @Entity()
 export class Beneficiario {
@@ -24,8 +26,14 @@ export class Beneficiario {
   foto: string;
 
   @Column({ type: 'int', nullable: true})
-  salo: number;
+  saldo: number;
 
-  @OneToOne(() => Persona, (persona) => persona.beneficiario, { nullable: true })
+  @OneToOne(() => Persona, (persona) => persona.idBeneficiario, { nullable: true })
   persona: Persona;
+
+  @OneToOne(() => Empresa, (empresa) => empresa.idBeneficiario, { nullable: true })
+  empresa: Empresa;
+
+  @OneToOne(() => Domicilio, (domicilio) => domicilio.idBeneficiario, { nullable: true })
+  domicilio: Domicilio;
 }

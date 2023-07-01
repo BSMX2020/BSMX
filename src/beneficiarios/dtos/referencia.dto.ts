@@ -1,26 +1,20 @@
 import { IsString, IsNotEmpty, IsEmail, Length, IsOptional, IsPositive } from 'class-validator';
 import { PartialType, ApiProperty } from '@nestjs/swagger';
 
-export class CreateBeneficiarioDto {  
+export class CreateReferenciaDto {  
 
   @IsString()
-  @IsNotEmpty()  
+  @IsNotEmpty() 
+  @Length(255) 
   @ApiProperty()
   readonly nombre: string;
 
   @IsString()
-  @IsNotEmpty()  
+  @IsNotEmpty() 
+  @Length(10) 
   @ApiProperty()
-  readonly correo: string;
+  readonly telefono: string;
 
-  @IsOptional()
-  @IsString()  
-  @ApiProperty()
-  readonly foto: string;
-
-  @IsOptional()
-  @IsString()  
-  @ApiProperty()
-  readonly saldo: number;
+  
 
 }
