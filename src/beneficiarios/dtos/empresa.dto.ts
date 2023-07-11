@@ -9,62 +9,54 @@ export class CreateEmpresaDto {
   readonly rfc: string;
 
   @IsString()
-  @IsNotEmpty() 
-  @Length(255) 
+  @IsNotEmpty()   
   @ApiProperty()
   readonly folioSolicitud: string;
 
   @IsString()
-  @IsNotEmpty() 
-  @Length(255) 
+  @IsNotEmpty()   
   @ApiProperty()
   readonly ingresoMensual: string;
 
   @IsString()
-  @IsNotEmpty() 
-  @Length(255) 
+  @IsNotEmpty()   
   @ApiProperty()
   readonly antiguedad: string;
 
   @IsString()
-  @IsNotEmpty() 
-  @Length(255) 
+  @IsNotEmpty()   
   @ApiProperty()
   readonly tipoGiro: string;
 
   @IsString()
-  @IsNotEmpty() 
-  @Length(255) 
+  @IsNotEmpty()   
   @ApiProperty()
   readonly gasto: string;
 
   @IsString()
-  @IsNotEmpty() 
-  @Length(255) 
+  @IsNotEmpty()   
   @ApiProperty()
   readonly percepcionMensual: string;
 
   @IsString()
-  @IsNotEmpty() 
-  @Length(255) 
+  @IsNotEmpty()   
   @ApiProperty()
   readonly utilidad: string;
 
   @IsString()
-  @IsNotEmpty() 
-  @Length(255) 
-  @ApiProperty()
-  readonly empresaTipo: string;
-
-  @IsString()
   @IsNotEmpty()   
   @ApiProperty()
-  readonly idBeneficiario: number;
+  readonly empresaTipo: string;
+  
+  @IsNotEmpty()   
+  @IsPositive()
+  @ApiProperty()
+  readonly beneficiario: number;
 
   @IsString()
   @IsNotEmpty() 
   @Length(18) 
   @ApiProperty()
-  readonly curpRepresentanteLegal: string;  
+  readonly representanteLegal: string;  
 
 }

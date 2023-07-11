@@ -10,20 +10,17 @@ export class CreateRepresentanteLegalDto {
   readonly curp: string;
 
   @IsString()
-  @IsNotEmpty()  
-  @Length(255) 
+  @IsNotEmpty()    
   @ApiProperty()
   readonly apellidoPaterno: string;
 
   @IsString()
-  @IsNotEmpty()  
-  @Length(255) 
+  @IsNotEmpty()    
   @ApiProperty()
   readonly apellidoMaterno: string;
 
   @IsString()
-  @IsNotEmpty()  
-  @Length(255) 
+  @IsNotEmpty()    
   @ApiProperty()
   readonly nombre: string;
 
@@ -39,8 +36,7 @@ export class CreateRepresentanteLegalDto {
   readonly telefono: string;
 
   @IsString()
-  @IsNotEmpty()  
-  @Length(255) 
+  @IsNotEmpty()    
   @ApiProperty()
   readonly tipoAcreditacion: string;
 

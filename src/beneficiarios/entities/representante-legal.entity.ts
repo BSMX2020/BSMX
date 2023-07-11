@@ -6,7 +6,8 @@ import {
   UpdateDateColumn,
   OneToOne,
   JoinColumn,
-  PrimaryColumn
+  PrimaryColumn,
+  OneToMany
 } from 'typeorm';
 
 import { Empresa } from './empresa.entity';
@@ -34,7 +35,9 @@ export class RepresentanteLegal {
   @Column({ type: 'varchar', length: 255 })
   tipoAcreditacion: string;
 
-  @OneToOne(() => Empresa, (empresa) => empresa.idBeneficiario, { nullable: true })
-  empresa: Empresa;
+  //---------------------------------------------
+
+  @OneToMany(() => Empresa, (empresa) => empresa.representanteLegal)
+  empresas: Empresa[];
   
 }

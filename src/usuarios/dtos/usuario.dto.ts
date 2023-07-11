@@ -6,11 +6,11 @@ export class CreateUsuarioDto {
   @IsString()
   @IsNotEmpty()  
   @ApiProperty()
-  readonly correo: string;
+  correo: string;
 
   @IsOptional()
   @IsString()  
   @ApiProperty()
-  readonly contrasenia: string; 
+  contrasenia: string; 
 
 }

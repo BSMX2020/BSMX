@@ -1,59 +1,45 @@
-import { IsString, IsNotEmpty, IsEmail, Length, IsOptional, IsPositive } from 'class-validator';
+import { IsString, IsNotEmpty, IsEmail, Length, IsOptional, IsPositive, isPositive } from 'class-validator';
 import { PartialType, ApiProperty } from '@nestjs/swagger';
 
 export class CreateDomicilioDto { 
   @IsString()
-  @IsNotEmpty()  
-  @Length(255) 
+  @IsNotEmpty()    
   @ApiProperty()
   readonly calle: string;
 
   @IsString()
-  @IsNotEmpty()  
-  @Length(255) 
+  @IsNotEmpty()    
   @ApiProperty()
   readonly colonia: string;
 
   @IsString()
-  @IsNotEmpty()  
-  @Length(255) 
+  @IsNotEmpty()    
   @ApiProperty()
   readonly estado: string;
 
   @IsString()
-  @IsNotEmpty()  
-  @Length(255) 
+  @IsNotEmpty()    
   @ApiProperty()
   readonly municipio: string;
 
   @IsString()
-  @IsNotEmpty()  
-  @Length(255) 
+  @IsNotEmpty()    
   @ApiProperty()
   readonly localidad: string;
 
   @IsString()
-  @IsNotEmpty()  
-  @Length(255) 
+  @IsNotEmpty()    
   @ApiProperty()
   readonly codigoPostal: string;
 
   @IsString()
-  @IsNotEmpty()  
-  @Length(255) 
+  @IsNotEmpty()    
   @ApiProperty()
   readonly numeroExterior: string;
 
   @IsString()
-  @IsNotEmpty()  
-  @Length(255) 
+  @IsNotEmpty()    
   @ApiProperty()
-  readonly numeroInterior: string;
-
-  @IsString()
-  @IsNotEmpty()  
-  @Length(255) 
-  @ApiProperty()
-  readonly idBeneficiario: string;  
+  readonly numeroInterior: string;  
 
 }

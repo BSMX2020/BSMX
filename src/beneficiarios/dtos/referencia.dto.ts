@@ -4,8 +4,7 @@ import { PartialType, ApiProperty } from '@nestjs/swagger';
 export class CreateReferenciaDto {  
 
   @IsString()
-  @IsNotEmpty() 
-  @Length(255) 
+  @IsNotEmpty()   
   @ApiProperty()
   readonly nombre: string;
 
@@ -15,6 +14,10 @@ export class CreateReferenciaDto {
   @ApiProperty()
   readonly telefono: string;
 
-  
+  @IsString()
+  @IsNotEmpty() 
+  @Length(18) 
+  @ApiProperty()
+  readonly persona: string;  
 
 }

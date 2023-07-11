@@ -1,7 +1,7 @@
 import { IsString, IsNotEmpty, IsEmail, Length, IsOptional, IsPositive } from 'class-validator';
 import { PartialType, ApiProperty } from '@nestjs/swagger';
 
-export class CreateBeneficiarioDto {  
+export class CreateBeneficiarioDto {    
 
   @IsString()
   @IsNotEmpty()  
@@ -19,8 +19,13 @@ export class CreateBeneficiarioDto {
   readonly foto: string;
 
   @IsOptional()
-  @IsString()  
+  @IsPositive()  
   @ApiProperty()
   readonly saldo: number;
+
+  @IsNotEmpty()  
+  @IsPositive()
+  @ApiProperty()
+  readonly domicilio: number;
 
 }

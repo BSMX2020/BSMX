@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToOne,
+  ManyToOne,
 } from 'typeorm';
 
 import { Persona } from './persona.entity';
@@ -27,13 +28,17 @@ export class Beneficiario {
 
   @Column({ type: 'int', nullable: true})
   saldo: number;
+  
+  //--------------------------------------------
 
-  @OneToOne(() => Persona, (persona) => persona.idBeneficiario, { nullable: true })
+  @ManyToOne(() => Domicilio, (domicilio) => domicilio.id, { onDelete: 'CASCADE' })
+  domicilio: number;
+
+  //--------------------------------------------
+  @OneToOne(() => Persona, (persona) => persona.beneficiario)
   persona: Persona;
 
-  @OneToOne(() => Empresa, (empresa) => empresa.idBeneficiario, { nullable: true })
+  @OneToOne(() => Empresa, (empresa) => empresa.beneficiario)
   empresa: Empresa;
-
-  @OneToOne(() => Domicilio, (domicilio) => domicilio.idBeneficiario, { nullable: true })
-  domicilio: Domicilio;
+ 
 }

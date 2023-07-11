@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToOne,
+  ManyToOne,
   JoinColumn,
   PrimaryColumn,
   IntegerType
@@ -12,7 +13,6 @@ import {
 
 import { Beneficiario } from './beneficiario.entity';
 import { RepresentanteLegal } from './representante-legal.entity';
-import { EmpresaGasto } from './pendientes/empresa-gasto.entity';
 
 @Entity()
 export class Empresa {
@@ -43,12 +43,13 @@ export class Empresa {
   @Column({ type: 'varchar', length: 255 })
   empresaTipo: string;
 
-  @OneToOne(() => Beneficiario, (beneficiario) => beneficiario.empresa, { nullable: true })
-  @JoinColumn()
-  idBeneficiario: number;
+  //---------------------------------------------
 
-  @OneToOne(() => RepresentanteLegal, (representante) => representante.empresa, { nullable: true })
+  @OneToOne(() => Beneficiario, (beneficiario) => beneficiario.id, { onDelete: 'CASCADE' })
   @JoinColumn()
-  curpRepresentanteLegal: string;
+  beneficiario: number;
+
+  @ManyToOne(() => RepresentanteLegal, (representante) => representante.curp, { onDelete: 'CASCADE' })
+  representanteLegal: string;
 
 }

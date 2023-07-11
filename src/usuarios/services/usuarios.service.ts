@@ -6,6 +6,7 @@ import { Client } from 'pg';
 
 import { Usuario } from '../entities/usuario.entity';
 import { CreateUsuarioDto } from '../dtos/usuario.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsuariosService {
@@ -26,11 +27,19 @@ export class UsuariosService {
     return usuario;
   }
 
-  create(data: CreateUsuarioDto) {
-    const newUsuario = this.usuarioRepo.create(data);
-    return this.usuarioRepo.save(newUsuario);
+  async create(data: CreateUsuarioDto) {
+    const { contrasenia } = data;
+    const hashedPassword = await this.encryptPassword(contrasenia);    
+    data.contrasenia = hashedPassword;
+
+    return this.usuarioRepo.save(data);
+    
   }
 
-
+  async encryptPassword(password: string): Promise<string> {
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    return hashedPassword;
+  }
 
 }

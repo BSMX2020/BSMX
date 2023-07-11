@@ -4,7 +4,7 @@ import {
   Entity,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToOne,
+  ManyToOne,
   JoinColumn,
   PrimaryColumn
 } from 'typeorm';
@@ -22,5 +22,9 @@ export class Referencia {
   @Column({ type: 'varchar', length: 10 })  
   telefono: string;
 
+  //---------------------------------------------
+
+  @ManyToOne(() => Persona, (persona) => persona.curp, { onDelete: 'CASCADE' })
+  persona: string;
   
 }

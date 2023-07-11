@@ -6,10 +6,12 @@ import {
   UpdateDateColumn,
   OneToOne,
   JoinColumn,
-  PrimaryColumn
+  PrimaryColumn,
+  OneToMany,
 } from 'typeorm';
 
 import { Beneficiario } from './beneficiario.entity';
+import { Referencia } from './referencia.entity';
 
 @Entity()
 export class Persona {
@@ -43,8 +45,15 @@ export class Persona {
   @Column({ type: 'varchar', length: 255 })
   percepcionMensual: string;
 
-  @OneToOne(() => Beneficiario, (beneficiario) => beneficiario.persona, { nullable: true })
+  //--------------------------------------------
+
+  @OneToOne(() => Beneficiario, (beneficiario) => beneficiario.id, { onDelete: 'CASCADE' })
   @JoinColumn()
-  idBeneficiario: number;
+  beneficiario: number;
+
+  //--------------------------------------------
+
+  @OneToMany(() => Referencia, (referencia) => referencia.persona)
+  referencias: Referencia[];
 
 }

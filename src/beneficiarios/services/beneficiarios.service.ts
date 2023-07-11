@@ -15,7 +15,9 @@ export class BeneficiariosService {
   ) { }
 
   findAll() {
-    return this.beneficiarioRepo.find();
+    return this.beneficiarioRepo.find({
+      relations: ['domicilio', 'persona', 'empresa'],
+    });
   }
 
   async findOne(id: number) {
@@ -26,11 +28,20 @@ export class BeneficiariosService {
     return beneficiario;
   }
 
+  async findOneRelations(id: number) {
+    const beneficiario = await this.beneficiarioRepo.findOne({ 
+      where: { id },
+      relations: ['domicilio', 'persona', 'empresa'],   
+    });
+    if (!beneficiario) {
+      throw new NotFoundException(`Beneficiario #${id} not found`);
+    }
+    return beneficiario;
+  }
+
   create(data: CreateBeneficiarioDto) {
     const newBeneficiario = this.beneficiarioRepo.create(data);
     return this.beneficiarioRepo.save(newBeneficiario);
   }
-
-
 
 }

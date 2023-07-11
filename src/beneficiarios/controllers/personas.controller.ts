@@ -18,6 +18,7 @@ import { ParseIntPipe } from '../../common/parse-int.pipe';
 import { CreatePersonaDto } from '../dtos/persona.dto';
 import { PersonasService } from './../services/personas.service';
 
+@ApiTags('personas')
 @Controller('personas')
 export class PersonasController {
 

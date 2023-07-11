@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToOne,
+  OneToMany,
   JoinColumn,
   PrimaryColumn
 } from 'typeorm';
@@ -41,8 +42,9 @@ export class Domicilio {
   @Column({ type: 'varchar', length: 255 })  
   numeroInterior: string;
 
-  @OneToOne(() => Beneficiario, (beneficiario) => beneficiario.domicilio, { nullable: true })
-  @JoinColumn()
-  idBeneficiario: number;
+  //--------------------------------------------
+
+  @OneToMany(() => Beneficiario, (beneficiario) => beneficiario.domicilio)
+  beneficiarios: Beneficiario[];
   
 }

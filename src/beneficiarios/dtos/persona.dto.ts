@@ -5,6 +5,7 @@ export class CreatePersonaDto {
 
   @IsString()
   @IsNotEmpty()  
+  @Length(18) 
   @ApiProperty()
   readonly curp: string;
 
@@ -20,6 +21,7 @@ export class CreatePersonaDto {
 
   @IsString()
   @IsNotEmpty()  
+  @Length(10) 
   @ApiProperty()
   readonly telefono: string;
 
@@ -51,11 +53,11 @@ export class CreatePersonaDto {
   @IsString()
   @IsNotEmpty()  
   @ApiProperty()
-  readonly percepcionMensual: string;
+  readonly percepcionMensual: string;  
 
-  @IsOptional()
+  @IsNotEmpty()  
   @IsPositive()
   @ApiProperty()
-  readonly idBeneficiario: number;  
+  readonly beneficiario: number;  
 
 }

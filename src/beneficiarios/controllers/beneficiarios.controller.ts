@@ -31,7 +31,7 @@ export class BeneficiariosController {
 
   @Get(':id')
   get(@Param('id', ParseIntPipe) id: number) {
-    return this.beneficiariosService.findOne(id);
+    return this.beneficiariosService.findOneRelations(id);
   }
 
   @Post()
