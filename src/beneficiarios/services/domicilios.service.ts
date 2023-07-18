@@ -4,18 +4,15 @@ import { Repository } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import { Client } from 'pg';
 
-import { Beneficiario } from '../entities/beneficiario.entity';
 import { Domicilio } from '../entities/domicilio.entity';
-
 import { CreateDomicilioDto } from '../dtos/domicilio.dto';
-import { BeneficiariosService } from './beneficiarios.service';
+
 
 @Injectable()
 export class DomiciliosService {
 
   constructor(
-    @InjectRepository(Domicilio) private domicilioRepo: Repository<Domicilio>,
-    private beneficiariosService: BeneficiariosService,
+    @InjectRepository(Domicilio) private domicilioRepo: Repository<Domicilio>,    
   ) { }
 
   findAll() {    

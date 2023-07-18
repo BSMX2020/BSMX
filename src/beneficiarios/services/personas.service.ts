@@ -20,14 +20,14 @@ export class PersonasService {
 
   findAll() {    
     return this.personaRepo.find({
-      relations: ['beneficiario', 'referencias'],
+      relations: ['beneficiario', 'referencias', 'requisitosPersona'],
     });
   }
 
   async findOne(curp: string) {
     const persona = await this.personaRepo.findOne({ 
       where: { curp: curp },
-      relations: ['beneficiario', 'referencias'],       
+      relations: ['beneficiario', 'referencias', 'requisitosPersona'],       
     });
     if (!persona) {
       throw new NotFoundException(`Persona #${curp} no encontrada`);

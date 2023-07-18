@@ -12,6 +12,7 @@ import {
 
 import { Beneficiario } from './beneficiario.entity';
 import { Referencia } from './referencia.entity';
+import { RequisitosPersona } from './requisitosPersona.entity';
 
 @Entity()
 export class Persona {
@@ -33,8 +34,8 @@ export class Persona {
   @Column({ type: 'varchar', length: 255 })
   municipio: string;
 
-  @Column({ type: 'varchar', length: 255 })
-  fechaNacimiento: string;
+  @Column({ type: 'date' })
+  fechaNacimiento: Date;
 
   @Column({ type: 'varchar', length: 255 })
   ocupacion: string;
@@ -55,5 +56,8 @@ export class Persona {
 
   @OneToMany(() => Referencia, (referencia) => referencia.persona)
   referencias: Referencia[];
+
+  @OneToOne(() => RequisitosPersona, (requisitosPersona) => requisitosPersona.persona)
+  requisitosPersona: RequisitosPersona;
 
 }

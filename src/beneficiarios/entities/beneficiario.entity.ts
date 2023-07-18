@@ -6,11 +6,13 @@ import {
   UpdateDateColumn,
   OneToOne,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
 
 import { Persona } from './persona.entity';
 import { Empresa } from './empresa.entity';
 import { Domicilio } from './domicilio.entity';
+import { Transaccion } from './transaccion.entity';
 
 @Entity()
 export class Beneficiario {
@@ -40,5 +42,11 @@ export class Beneficiario {
 
   @OneToOne(() => Empresa, (empresa) => empresa.beneficiario)
   empresa: Empresa;
+
+  @OneToMany(() => Transaccion, (transaccion) => transaccion.beneficiarioEmisor)
+  transaccionesEmisor: Transaccion[];
+
+  @OneToMany(() => Transaccion, (transaccion) => transaccion.beneficiarioReceptor)
+  transaccionesReceptor: Transaccion[];
  
 }

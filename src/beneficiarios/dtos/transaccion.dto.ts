@@ -9,32 +9,27 @@ import {
   Matches } from 'class-validator';
 import { PartialType, ApiProperty } from '@nestjs/swagger';
 
-export class CreateBeneficiarioDto {    
+export class CreateTransaccionDto {    
 
   @IsString()
   @IsNotEmpty()  
   @ApiProperty()
-  readonly nombre: string;
-
-  @IsString()
-  @IsNotEmpty() 
-  @IsEmail() 
-  @ApiProperty()  
-  readonly correo: string;
-
-  @IsOptional()
-  @IsString()  
-  @ApiProperty()
-  readonly foto: string;
-
+  readonly folio: string;
+  
   @IsOptional()
   @IsPositive()  
   @ApiProperty()
-  readonly saldo: number;
+  readonly monto: number;
 
   @IsNotEmpty()  
   @IsPositive()
   @ApiProperty()
-  readonly domicilio: number;
+  readonly beneficiarioEmisor: number;
+
+  @IsNotEmpty()  
+  @IsPositive()
+  @ApiProperty()
+  readonly beneficiarioReceptor: number;
+
 
 }

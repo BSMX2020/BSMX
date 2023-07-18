@@ -13,6 +13,7 @@ import {
 
 import { Beneficiario } from './beneficiario.entity';
 import { RepresentanteLegal } from './representante-legal.entity';
+import { RequisitosEmpresa } from './requisitosEmpresa.entity';
 
 @Entity()
 export class Empresa {
@@ -51,5 +52,10 @@ export class Empresa {
 
   @ManyToOne(() => RepresentanteLegal, (representante) => representante.curp, { onDelete: 'CASCADE' })
   representanteLegal: string;
+
+  //---------------------------------------------
+
+  @OneToOne(() => RequisitosEmpresa, (requisitosEmpresa) => requisitosEmpresa.empresa)
+  requisitosEmpresa: RequisitosEmpresa;
 
 }

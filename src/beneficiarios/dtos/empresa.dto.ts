@@ -1,10 +1,21 @@
-import { IsString, IsNotEmpty, IsEmail, Length, IsOptional, IsPositive } from 'class-validator';
+import { 
+  IsString,
+  IsNotEmpty,
+  IsEmail, 
+  Length, 
+  IsOptional, 
+  IsPositive, 
+  IsDateString, 
+  Matches } from 'class-validator';
 import { PartialType, ApiProperty } from '@nestjs/swagger';
 
 export class CreateEmpresaDto { 
   @IsString()
-  @IsNotEmpty() 
-  @Length(13) 
+  @IsNotEmpty()  
+  @Matches(/^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/, {
+    message:
+      'Formato de RFC inválido',
+  })
   @ApiProperty()
   readonly rfc: string;
 
@@ -54,8 +65,11 @@ export class CreateEmpresaDto {
   readonly beneficiario: number;
 
   @IsString()
-  @IsNotEmpty() 
-  @Length(18) 
+  @IsNotEmpty()  
+  @Matches(/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/, {
+    message:
+      'Formato de CURP inválido',
+  })
   @ApiProperty()
   readonly representanteLegal: string;  
 
