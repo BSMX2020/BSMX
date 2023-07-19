@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, Inject, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, NotFoundException, Inject, BadRequestException, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
@@ -37,6 +37,11 @@ export class PersonasService {
 
   async create(data: CreatePersonaDto) {
 
+    const persona = await this.personaRepo.findOne({ where: { curp: data.curp }});    
+    if (persona) {      
+      throw new BadRequestException(`Ya existe una persona registrada con el CURP ${data.curp}`);
+    }  
+
     const beneficiario = await this.beneficiariosService.findOneRelations(data.beneficiario);
     if (!beneficiario) {      
       throw new NotFoundException(`Id de Beneficiario ${data.beneficiario} no encontrado`);
@@ -46,6 +51,13 @@ export class PersonasService {
       throw new HttpException({
         status: HttpStatus.BAD_REQUEST,
         error: `Ya existe una persona con el idBeneficiario = ${data.beneficiario} asignado`,
+      }, HttpStatus.BAD_REQUEST);        
+    }  
+
+    if (beneficiario.empresa) {
+      throw new HttpException({
+        status: HttpStatus.BAD_REQUEST,
+        error: `Ya existe una empresa con el idBeneficiario = ${data.beneficiario} asignado`,
       }, HttpStatus.BAD_REQUEST);        
     }  
 

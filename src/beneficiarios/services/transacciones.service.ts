@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, Inject } from '@nestjs/common';
+import { Injectable, NotFoundException, Inject, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -24,7 +24,7 @@ export class TransaccionesService {
   async findOne(folio: string) {
     const transaccion = await this.transaccionRepo.findOne({ where: { folio } });
     if (!transaccion) {
-      throw new NotFoundException(`Transaccion #${folio} not found`);
+      throw new NotFoundException(`Transaccion #${folio} no encontrada`);
     }
     return transaccion;
   }
@@ -35,12 +35,17 @@ export class TransaccionesService {
       relations: ['beneficiarioEmisor', 'beneficiarioReceptor'],   
     });
     if (!transaccion) {
-      throw new NotFoundException(`Transaccion #${folio} not found`);
+      throw new NotFoundException(`Transaccion #${folio} no encontrada`);
     }
     return transaccion;
   }
 
   async create(data: CreateTransaccionDto) {
+
+    const transaccion = await this.transaccionRepo.findOne({ where: { folio: data.folio }});    
+    if (transaccion) {      
+      throw new BadRequestException(`Ya existe una transaccion registrada con dicho folio ${data.folio}`);
+    }  
     
     const beneficiarioEmisor = await this.beneficiarioService.findOne(data.beneficiarioEmisor);
     if (!beneficiarioEmisor) { 

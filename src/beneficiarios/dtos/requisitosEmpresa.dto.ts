@@ -69,7 +69,7 @@ export class CreateRequisitosEmpresaDto {
 
   @IsString()
   @IsNotEmpty()  
-  @Matches(/^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/, {
+  @Matches(/^[A-Z]{4}\d{6}[A-Z0-9]{3}$/, {
     message:
       'Formato de RFC inválido',
   })

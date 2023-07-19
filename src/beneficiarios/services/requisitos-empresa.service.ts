@@ -29,15 +29,12 @@ export class RequisitosEmpresaService {
     return requisitosEmpresa;
   }
 
-  async findOneRelations(empresa: string) {
-    const requisitosEmpresa = await this.requisitosEmpresaRepo.findOne({ 
-      where: { empresa },
-      relations: ['empresa'],   
-    });
-    if (!requisitosEmpresa) {
-      throw new NotFoundException(`Requisitos empresa con RFC de empresa ${empresa} no encontrados`);
+  async findOneRelations(empresaRfc: string) {
+    const empresa = await this.empresasService.findOne(empresaRfc);
+    if (!empresa.requisitosEmpresa) {
+      throw new NotFoundException(`Requisitos empresa con RFC de empresa ${empresaRfc} no encontrados`);
     }
-    return requisitosEmpresa;
+    return empresa;
   }
 
   async create(data: CreateRequisitosEmpresaDto) {

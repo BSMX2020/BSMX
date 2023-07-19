@@ -22,7 +22,7 @@ export class UsuariosService {
   async findOne(correo: string) {
     const usuario = await this.usuarioRepo.findOne({ where: { correo } });
     if (!usuario) {
-      throw new NotFoundException(`Usuario #${correo} not found`);
+      throw new NotFoundException(`Usuario #${correo} no encontrado`);
     }
     return usuario;
   }

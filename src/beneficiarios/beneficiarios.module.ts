@@ -32,8 +32,14 @@ import { Transaccion } from './entities/transaccion.entity';
 import { RequisitosPersonaController } from './controllers/requisitos-persona.controller';
 import { RequisitosPersonaService } from './services/requisitos-persona.service';
 import { RequisitosPersona } from './entities/requisitosPersona.entity';
-import { RequisitosEmpresaService } from './services/requisitos-empresa.service';
+
 import { RequisitosEmpresaController } from './controllers/requisitos-empresa.controller';
+import { RequisitosEmpresaService } from './services/requisitos-empresa.service';
+import { RequisitosEmpresa } from './entities/requisitosEmpresa.entity';
+
+import { LineasCreditoController } from './controllers/lineas-credito.controller';
+import { LineasCreditoService } from './services/lineas-credito.service';
+import { LineaCredito } from './entities/lineaCredito.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([
@@ -44,7 +50,9 @@ import { RequisitosEmpresaController } from './controllers/requisitos-empresa.co
     Empresa,
     Referencia,
     Transaccion,
-    RequisitosPersona])],
+    RequisitosPersona,
+    RequisitosEmpresa,
+    LineaCredito])],
   controllers: [
     DomiciliosController,
     BeneficiariosController, 
@@ -54,14 +62,18 @@ import { RequisitosEmpresaController } from './controllers/requisitos-empresa.co
     RepresentantesLegalesController,     
     RequisitosPersonaController,
     TransaccionesController,
-    RequisitosEmpresaController],
-  providers: [DomiciliosService, 
+    RequisitosEmpresaController,
+    LineasCreditoController],
+  providers: [
+    DomiciliosService, 
     BeneficiariosService, 
     PersonasService, 
     RepresentantesLegalesService, 
     EmpresasService, 
     ReferenciasService,     
     RequisitosPersonaService, 
-    TransaccionesService, RequisitosEmpresaService]
+    TransaccionesService, 
+    RequisitosEmpresaService, 
+    LineasCreditoService]
 })
 export class BeneficiariosModule {}

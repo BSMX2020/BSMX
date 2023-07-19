@@ -13,6 +13,7 @@ import { Persona } from './persona.entity';
 import { Empresa } from './empresa.entity';
 import { Domicilio } from './domicilio.entity';
 import { Transaccion } from './transaccion.entity';
+import { LineaCredito } from './lineaCredito.entity';
 
 @Entity()
 export class Beneficiario {
@@ -42,6 +43,9 @@ export class Beneficiario {
 
   @OneToOne(() => Empresa, (empresa) => empresa.beneficiario)
   empresa: Empresa;
+
+  @OneToOne(() => LineaCredito, (lineaCredito) => lineaCredito.beneficiario)
+  lineaCredito: LineaCredito;
 
   @OneToMany(() => Transaccion, (transaccion) => transaccion.beneficiarioEmisor)
   transaccionesEmisor: Transaccion[];

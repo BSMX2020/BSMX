@@ -17,7 +17,7 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { CreateRequisitosPersonaDto } from '../dtos/requisitosPersona.dto';
 import { RequisitosPersonaService } from './../services/requisitos-persona.service';
 
-@ApiTags('requisitosPersona')
+@ApiTags('requisitos persona')
 @Controller('requisitos-persona')
 export class RequisitosPersonaController {
   constructor(private requisitosPersonaService: RequisitosPersonaService) { }

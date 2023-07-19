@@ -24,14 +24,15 @@ export class BeneficiariosService {
         'persona', 
         'empresa', 
         'transaccionesEmisor', 
-        'transaccionesReceptor'],
+        'transaccionesReceptor',
+        'lineaCredito'], 
     });
   }
 
   async findOne(id: number) {
     const beneficiario = await this.beneficiarioRepo.findOne({ where: { id } });
     if (!beneficiario) {
-      throw new NotFoundException(`Beneficiario #${id} not found`);
+      throw new NotFoundException(`Beneficiario #${id} no encontrado`);
     }
     return beneficiario;
   }
@@ -44,10 +45,11 @@ export class BeneficiariosService {
         'persona', 
         'empresa', 
         'transaccionesEmisor', 
-        'transaccionesReceptor'],   
+        'transaccionesReceptor',
+        'lineaCredito'],   
     });
     if (!beneficiario) {
-      throw new NotFoundException(`Beneficiario #${id} not found`);
+      throw new NotFoundException(`Beneficiario #${id} no encontrado`);
     }
     return beneficiario;
   }

@@ -33,7 +33,7 @@ export class RepresentantesLegalesService {
 
   async create(data: CreateRepresentanteLegalDto) {    
         
-    const representanteLegal = await this.findOne(data.curp);
+    const representanteLegal = await this.representanteLegalRepo.findOne({ where: { curp: data.curp }});    
     if (representanteLegal) {      
       throw new BadRequestException(`Ya existe un representante legal con el CURP ${data.curp}`);
     }  
