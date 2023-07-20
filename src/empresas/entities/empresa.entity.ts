@@ -11,7 +11,7 @@ import {
   IntegerType
 } from 'typeorm';
 
-import { Beneficiario } from './beneficiario.entity';
+import { Beneficiario } from '../../beneficiarios/entities/beneficiario.entity';
 import { RepresentanteLegal } from './representante-legal.entity';
 import { RequisitosEmpresa } from './requisitosEmpresa.entity';
 

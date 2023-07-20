@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
-import { CreateRepresentanteLegalDto } from '../dtos/representante-legal.dto';
+import { CreateRepresentanteLegalDto } from './../dto/representante-legal.dto';
 import { RepresentantesLegalesService } from './../services/representantes-legales.service';
 
 @ApiTags('representantes-legales')

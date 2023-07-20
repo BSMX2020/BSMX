@@ -14,9 +14,8 @@ import {
 } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
-import { ParseIntPipe } from '../../common/parse-int.pipe';
-import { CreatePersonaDto } from '../dtos/persona.dto';
-import { PersonasService } from './../services/personas.service';
+import { CreatePersonaDto } from '../../personas/dtos/persona.dto';
+import { PersonasService } from '../../personas/services/personas.service';
 
 @ApiTags('personas')
 @Controller('personas')

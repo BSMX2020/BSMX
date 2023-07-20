@@ -14,7 +14,7 @@ import {
 } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
-import { CreateRequisitosEmpresaDto } from '../dtos/requisitosEmpresa.dto';
+import { CreateRequisitosEmpresaDto } from '../dto/requisitosEmpresa.dto';
 import { RequisitosEmpresaService } from './../services/requisitos-empresa.service';
 
 @ApiTags('requisitos empresa')

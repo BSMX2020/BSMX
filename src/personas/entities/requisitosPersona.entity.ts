@@ -1,4 +1,4 @@
-import { 
+import {
   PrimaryGeneratedColumn,
   Column,
   Entity,
@@ -10,12 +10,18 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import { Empresa } from './empresa.entity';
+import { Persona } from './persona.entity';
 
 @Entity()
-export class RequisitosEmpresa {
+export class RequisitosPersona {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({ type: 'varchar', length: 255 })
+  fotoCasa: string;
+
+  @Column({ type: 'varchar', length: 255 })
+  rfc: string;
 
   @Column({ type: 'varchar', length: 255 })
   reciboPagoSolicitud: string;
@@ -24,36 +30,18 @@ export class RequisitosEmpresa {
   ine: string;
 
   @Column({ type: 'varchar', length: 255 })
-  fotoCaraIne: string;
-
-  @Column({ type: 'varchar', length: 255 })
-  fotoMercancia: string;
-
-  @Column({ type: 'varchar', length: 255 })
-  fotoExteriorNegocio: string;
-
-  @Column({ type: 'varchar', length: 255 })
-  fotoInteriorNegocio: string;
-
-  @Column({ type: 'varchar', length: 255 })
   curp: string;
-
-  @Column({ type: 'varchar', length: 255 })
-  comprobanteDomicilio: string;
 
   @Column({ type: 'varchar', length: 255 })
   comprobanteIngresos: string;
 
   @Column({ type: 'varchar', length: 255 })
-  acreditacionJuridica: string;
-
-  @Column({ type: 'varchar', length: 255 })
-  rfc: string;
+  comprobanteDomicilio: string;
 
   //--------------------------------------------
 
-  @OneToOne(() => Empresa, (empresa) => empresa.rfc, { onDelete: 'CASCADE' })
+  @OneToOne(() => Persona, (persona) => persona.curp, { onDelete: 'CASCADE' })
   @JoinColumn()
-  empresa: string;
+  persona: string;
 
 }

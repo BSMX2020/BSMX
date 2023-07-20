@@ -1,8 +1,6 @@
 import { Injectable, NotFoundException, Inject, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ConfigService } from '@nestjs/config';
-import { Client } from 'pg';
 
 import { Domicilio } from '../entities/domicilio.entity';
 import { CreateDomicilioDto } from '../dtos/domicilio.dto';

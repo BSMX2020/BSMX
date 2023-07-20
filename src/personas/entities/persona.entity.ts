@@ -1,4 +1,4 @@
-import { 
+import {
   PrimaryGeneratedColumn,
   Column,
   Entity,
@@ -10,13 +10,13 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import { Beneficiario } from './beneficiario.entity';
+import { Beneficiario } from '../../beneficiarios/entities/beneficiario.entity';
 import { Referencia } from './referencia.entity';
 import { RequisitosPersona } from './requisitosPersona.entity';
 
 @Entity()
 export class Persona {
-  @PrimaryColumn({ type: 'varchar', length: 18 })  
+  @PrimaryColumn({ type: 'varchar', length: 18 })
   curp: string;
 
   @Column({ type: 'varchar', length: 255 })

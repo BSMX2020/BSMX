@@ -9,11 +9,11 @@ import {
   Delete,
   HttpStatus,
   HttpCode,
-  Res,  
+  Res,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
-import { CreateEmpresaDto } from '../dtos/empresa.dto';
+import { CreateEmpresaDto } from '../../empresas/dto/empresa.dto';
 import { EmpresasService } from './../services/empresas.service';
 
 @ApiTags('empresas')

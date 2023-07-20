@@ -1,4 +1,4 @@
-import { 
+import {
   PrimaryGeneratedColumn,
   Column,
   Entity,
@@ -9,8 +9,8 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import { Persona } from './persona.entity';
-import { Empresa } from './empresa.entity';
+import { Persona } from '../../personas/entities/persona.entity';
+import { Empresa } from '../../empresas/entities/empresa.entity';
 import { Domicilio } from './domicilio.entity';
 import { Transaccion } from './transaccion.entity';
 import { LineaCredito } from './lineaCredito.entity';
@@ -29,9 +29,9 @@ export class Beneficiario {
   @Column({ type: 'varchar', length: 255, nullable: true })
   foto: string;
 
-  @Column({ type: 'int', nullable: true})
+  @Column({ type: 'int', nullable: true })
   saldo: number;
-  
+
   //--------------------------------------------
 
   @ManyToOne(() => Domicilio, (domicilio) => domicilio.id, { onDelete: 'CASCADE' })
@@ -52,5 +52,5 @@ export class Beneficiario {
 
   @OneToMany(() => Transaccion, (transaccion) => transaccion.beneficiarioReceptor)
   transaccionesReceptor: Transaccion[];
- 
+
 }

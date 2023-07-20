@@ -2,8 +2,8 @@ import { Injectable, NotFoundException, Inject, HttpException, HttpStatus } from
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { RequisitosEmpresa } from '../entities/requisitosEmpresa.entity';
-import { CreateRequisitosEmpresaDto } from '../dtos/requisitosEmpresa.dto';
+import { RequisitosEmpresa } from '../../empresas/entities/requisitosEmpresa.entity';
+import { CreateRequisitosEmpresaDto } from '../dto/requisitosEmpresa.dto';
 
 import { EmpresasService } from './empresas.service';
 
@@ -38,9 +38,9 @@ export class RequisitosEmpresaService {
   }
 
   async create(data: CreateRequisitosEmpresaDto) {
-    
+
     const empresa = await this.empresasService.findOne(data.empresa);
-    if (!empresa) { 
+    if (!empresa) {
       throw new NotFoundException(`Empresa con RFC ${data.empresa} no encontrada`);
     }
 
@@ -48,10 +48,10 @@ export class RequisitosEmpresaService {
       throw new HttpException({
         status: HttpStatus.BAD_REQUEST,
         error: `Ya existe la empresa con RFC ${empresa.rfc} con requisitos asignados`,
-      }, HttpStatus.BAD_REQUEST);        
-    }  
-    
-    const newRequisitosEmpresa = this.requisitosEmpresaRepo.create(data);    
+      }, HttpStatus.BAD_REQUEST);
+    }
+
+    const newRequisitosEmpresa = this.requisitosEmpresaRepo.create(data);
     return this.requisitosEmpresaRepo.save(newRequisitosEmpresa);
   }
 

@@ -1,4 +1,4 @@
-import { 
+import {
   PrimaryGeneratedColumn,
   Column,
   Entity,
@@ -14,7 +14,7 @@ import { Empresa } from './empresa.entity';
 
 @Entity()
 export class RepresentanteLegal {
-  @PrimaryColumn({ type: 'varchar', length: 18 })  
+  @PrimaryColumn({ type: 'varchar', length: 18 })
   curp: string;
 
   @Column({ type: 'varchar', length: 255 })
@@ -39,5 +39,5 @@ export class RepresentanteLegal {
 
   @OneToMany(() => Empresa, (empresa) => empresa.representanteLegal)
   empresas: Empresa[];
-  
+
 }

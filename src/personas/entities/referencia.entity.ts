@@ -1,4 +1,4 @@
-import { 
+import {
   PrimaryGeneratedColumn,
   Column,
   Entity,
@@ -16,15 +16,15 @@ export class Referencia {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', length: 255 })  
+  @Column({ type: 'varchar', length: 255 })
   nombre: string;
 
-  @Column({ type: 'varchar', length: 10 })  
+  @Column({ type: 'varchar', length: 10 })
   telefono: string;
 
   //---------------------------------------------
 
   @ManyToOne(() => Persona, (persona) => persona.curp, { onDelete: 'CASCADE' })
   persona: string;
-  
+
 }

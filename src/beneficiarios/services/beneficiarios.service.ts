@@ -1,8 +1,6 @@
 import { Injectable, NotFoundException, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ConfigService } from '@nestjs/config';
-import { Client } from 'pg';
 
 import { Beneficiario } from '../entities/beneficiario.entity';
 import { CreateBeneficiarioDto } from '../dtos/beneficiario.dto';
