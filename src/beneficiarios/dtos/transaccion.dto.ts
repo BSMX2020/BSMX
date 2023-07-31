@@ -9,12 +9,7 @@ import {
   Matches } from 'class-validator';
 import { PartialType, ApiProperty } from '@nestjs/swagger';
 
-export class CreateTransaccionDto {    
-
-  @IsString()
-  @IsNotEmpty()  
-  @ApiProperty()
-  readonly folio: string;
+export class CreateTransaccionDto {     
   
   @IsOptional()
   @IsPositive()  

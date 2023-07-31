@@ -21,31 +21,26 @@ export class TransaccionesService {
     });
   }
 
-  async findOne(folio: string) {
-    const transaccion = await this.transaccionRepo.findOne({ where: { folio } });
+  async findOne(id: number) {
+    const transaccion = await this.transaccionRepo.findOne({ where: { id } });
     if (!transaccion) {
-      throw new NotFoundException(`Transaccion #${folio} no encontrada`);
+      throw new NotFoundException(`Transaccion #${id} no encontrada`);
     }
     return transaccion;
   }
 
-  async findOneRelations(folio: string) {
+  async findOneRelations(id: number) {
     const transaccion = await this.transaccionRepo.findOne({ 
-      where: { folio },
+      where: { id },
       relations: ['beneficiarioEmisor', 'beneficiarioReceptor'],   
     });
     if (!transaccion) {
-      throw new NotFoundException(`Transaccion #${folio} no encontrada`);
+      throw new NotFoundException(`Transaccion #${id} no encontrada`);
     }
     return transaccion;
   }
 
-  async create(data: CreateTransaccionDto) {
-
-    const transaccion = await this.transaccionRepo.findOne({ where: { folio: data.folio }});    
-    if (transaccion) {      
-      throw new BadRequestException(`Ya existe una transaccion registrada con dicho folio ${data.folio}`);
-    }  
+  async create(data: CreateTransaccionDto) {    
     
     const beneficiarioEmisor = await this.beneficiarioService.findOne(data.beneficiarioEmisor);
     if (!beneficiarioEmisor) { 

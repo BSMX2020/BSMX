@@ -27,9 +27,9 @@ export class TransaccionesController {
     return this.transaccionesService.findAll();
   }
 
-  @Get(':folio')
-  get(@Param('folio') folio: string) {
-    return this.transaccionesService.findOneRelations(folio);
+  @Get(':id')
+  get(@Param('id') id: number) {
+    return this.transaccionesService.findOneRelations(id);
   }
 
   @Post()

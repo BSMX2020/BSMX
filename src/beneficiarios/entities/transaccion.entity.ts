@@ -3,6 +3,7 @@ import {
   Column,
   Entity,
   CreateDateColumn,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
   OneToOne,
   ManyToOne,
@@ -12,8 +13,8 @@ import { Beneficiario } from './beneficiario.entity';
 
 @Entity()
 export class Transaccion {
-  @PrimaryColumn({ type: 'varchar', length: 255 })  
-  folio: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column({ type: 'int'})
   monto: number;
