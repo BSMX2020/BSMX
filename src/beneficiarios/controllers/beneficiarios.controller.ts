@@ -34,6 +34,11 @@ export class BeneficiariosController {
     return this.beneficiariosService.findOneRelations(id);
   }
 
+  @Get(':correo')
+  getByCorreo(@Param('correo') correo: string) {
+    return this.beneficiariosService.findOneByCorreo(correo);
+  }
+
   @Post()
   create(@Body() payload: CreateBeneficiarioDto) {
     return this.beneficiariosService.create(payload);

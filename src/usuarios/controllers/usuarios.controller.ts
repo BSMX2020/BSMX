@@ -9,12 +9,12 @@ import {
   Delete,
   HttpStatus,
   HttpCode,
-  Res,
+  Res,  
   // ParseIntPipe,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
-import { ParseIntPipe } from '../../common/parse-int.pipe';
+import { ParseIntPipe, } from '../../common/parse-int.pipe';
 import { CreateUsuarioDto } from '../dtos/usuario.dto';
 import { UsuariosService } from './../services/usuarios.service';
 

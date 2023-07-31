@@ -22,6 +22,11 @@ export class CreateBeneficiarioDto {
   @ApiProperty()  
   readonly correo: string;
 
+  @IsNotEmpty()
+  @IsString()  
+  @ApiProperty()
+  contrasenia: string; 
+
   @IsOptional()
   @IsString()  
   @ApiProperty()

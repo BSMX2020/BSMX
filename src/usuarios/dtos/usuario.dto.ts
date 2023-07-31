@@ -2,10 +2,11 @@ import { IsString, IsNotEmpty, IsEmail, Length, IsOptional, IsPositive } from 'c
 import { PartialType, ApiProperty } from '@nestjs/swagger';
 
 export class CreateUsuarioDto {  
-
+  
   @IsString()
-  @IsNotEmpty()  
-  @ApiProperty()
+  @IsNotEmpty() 
+  @IsEmail() 
+  @ApiProperty()  
   correo: string;
 
   @IsOptional()

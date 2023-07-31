@@ -43,3 +43,5 @@ export class CreateDomicilioDto {
   readonly numeroInterior: string;  
 
 }
+
+export class UpdateDomicilioDto extends PartialType(CreateDomicilioDto) {}

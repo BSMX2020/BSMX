@@ -26,6 +26,9 @@ export class Beneficiario {
   @Column({ type: 'varchar', length: 255 })
   correo: string;
 
+  @Column({ type: 'varchar', length: 255 })
+  contrasenia: string;
+
   @Column({ type: 'varchar', length: 255, nullable: true })
   foto: string;
 

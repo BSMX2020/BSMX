@@ -28,6 +28,13 @@ export class UsuariosService {
   }
 
   async create(data: CreateUsuarioDto) {
+
+    // const beneficiario = await this.usuarioRepo.findOne({ where: { correo: data.correo } });
+    // if (beneficiario) {
+    //   throw new BadRequestException(`Ya existe una persona registrada con ese Correo ${data.correo}`);
+    // }
+    
+
     const { contrasenia } = data;
     const hashedPassword = await this.encryptPassword(contrasenia);    
     data.contrasenia = hashedPassword;

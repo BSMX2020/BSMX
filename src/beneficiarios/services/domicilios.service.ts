@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Domicilio } from '../entities/domicilio.entity';
-import { CreateDomicilioDto } from '../dtos/domicilio.dto';
+import { CreateDomicilioDto, UpdateDomicilioDto } from '../dtos/domicilio.dto';
 
 
 @Injectable()
@@ -30,22 +30,16 @@ export class DomiciliosService {
     return domicilio;
   }  
 
-  async create(data: CreateDomicilioDto) {
-
-    // const beneficiario = await this.beneficiariosService.findOneRelations(data.beneficiario);
-    // if (!beneficiario) {      
-    //   throw new NotFoundException(`Id de Beneficiario ${data.beneficiario} no encontrado`);
-    // }         
-
-    // if (beneficiario.domicilio) {
-    //   throw new HttpException({
-    //     status: HttpStatus.BAD_REQUEST,
-    //     error: `Ya existe ese domicilio asignado`,
-    //   }, HttpStatus.BAD_REQUEST);        
-    // }  
+  async create(data: CreateDomicilioDto) {    
 
     const newDomicilio = this.domicilioRepo.create(data);
     return this.domicilioRepo.save(newDomicilio);
+  }
+
+  async update(id: number, changes: UpdateDomicilioDto) {
+    const domicilio = await this.domicilioRepo.findOneBy({id});
+    this.domicilioRepo.merge(domicilio, changes);    
+    return this.domicilioRepo.save(domicilio);
   }
 
 }
