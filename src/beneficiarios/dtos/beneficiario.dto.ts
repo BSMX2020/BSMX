@@ -15,8 +15,7 @@ export class CreateBeneficiarioDto {
   @IsNotEmpty()  
   @ApiProperty()
   readonly nombre: string;
-
-  @IsString()
+  
   @IsNotEmpty() 
   @IsEmail() 
   @ApiProperty()  
@@ -41,5 +40,19 @@ export class CreateBeneficiarioDto {
   @IsPositive()
   @ApiProperty()
   readonly domicilio: number;
+
+}
+
+export class LogInBeneficiarioDto {  
+  
+  @IsNotEmpty() 
+  @IsEmail() 
+  @ApiProperty()  
+  readonly correo: string;
+
+  @IsNotEmpty()
+  @IsString()  
+  @ApiProperty()
+  contrasenia: string; 
 
 }

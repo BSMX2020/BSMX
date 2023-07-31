@@ -16,6 +16,7 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 import { ParseIntPipe } from '../../common/parse-int.pipe';
 import { CreateBeneficiarioDto } from '../dtos/beneficiario.dto';
+import { LogInBeneficiarioDto } from '../dtos/beneficiario.dto';
 import { BeneficiariosService } from './../services/beneficiarios.service';
 
 @ApiTags('beneficiarios')
@@ -29,19 +30,24 @@ export class BeneficiariosController {
     return this.beneficiariosService.findAll();
   }
 
+  @Get('correo/:correo')
+  getByCorreo(@Param('correo') correo: string) {
+    return this.beneficiariosService.findOneByCorreo(correo);
+  }
+
   @Get(':id')
   get(@Param('id', ParseIntPipe) id: number) {
     return this.beneficiariosService.findOneRelations(id);
   }
 
-  @Get(':correo')
-  getByCorreo(@Param('correo') correo: string) {
-    return this.beneficiariosService.findOneByCorreo(correo);
-  }
-
   @Post()
   create(@Body() payload: CreateBeneficiarioDto) {
     return this.beneficiariosService.create(payload);
+  }
+
+  @Post('login')
+  logIn(@Body() payload: LogInBeneficiarioDto) {
+    return this.beneficiariosService.logIn(payload);
   }
 
 }

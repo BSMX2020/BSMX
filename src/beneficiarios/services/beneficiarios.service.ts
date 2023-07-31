@@ -5,6 +5,7 @@ import * as bcrypt from 'bcrypt';
 
 import { Beneficiario } from '../entities/beneficiario.entity';
 import { CreateBeneficiarioDto } from '../dtos/beneficiario.dto';
+import { LogInBeneficiarioDto } from '../dtos/beneficiario.dto';
 
 import { DomiciliosService } from './domicilios.service';
 
@@ -37,10 +38,33 @@ export class BeneficiariosService {
   }
 
   async findOneByCorreo(correo: string) {
+
     const beneficiario = await this.beneficiarioRepo.findOne({ where: { correo } });
     if (!beneficiario) {
       throw new NotFoundException(`Beneficiario #${correo} no encontrado`);
     }
+    return beneficiario;
+  }
+
+  async logIn(data: LogInBeneficiarioDto) {       
+
+    const beneficiario = await this.beneficiarioRepo.findOne({
+      where: {
+        correo: data.correo,        
+      }
+    });
+    
+    if (!beneficiario) {
+      throw new NotFoundException(`Correo y/o Contraseña incorrectos`);
+    }
+
+    const { contrasenia } = data;         
+    const passwordVerificationValue = await this.checkPassword(contrasenia, beneficiario.contrasenia);        
+    
+    if (!passwordVerificationValue) {
+      throw new NotFoundException(`Correo y/o Contraseña incorrectos`);
+    }
+
     return beneficiario;
   }
 
@@ -83,8 +107,13 @@ export class BeneficiariosService {
   
   async encryptPassword(password: string): Promise<string> {
     const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const hashedPassword = await bcrypt.hash(password, saltRounds);    
     return hashedPassword;
-  }
+  }  
+
+  async checkPassword(password: string, hashPassword: string): Promise<string> {        
+    const verificationValue = await bcrypt.compare(password, hashPassword);
+    return verificationValue;
+  }  
 
 }
