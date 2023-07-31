@@ -39,4 +39,9 @@ export class UsuariosController {
     return this.usuariosService.create(payload);
   }
 
+  @Post('login')
+  logIn(@Body() payload: CreateUsuarioDto) {
+    return this.usuariosService.logIn(payload);
+  }
+
 }
