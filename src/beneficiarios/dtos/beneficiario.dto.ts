@@ -34,7 +34,7 @@ export class CreateBeneficiarioDto {
   @IsOptional()
   @IsPositive()  
   @ApiProperty()
-  readonly saldo: number;
+  saldo: number;
 
   @IsNotEmpty()  
   @IsPositive()

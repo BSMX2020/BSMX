@@ -90,6 +90,8 @@ export class BeneficiariosService {
     const { contrasenia } = data;
     const hashedPassword = await this.encryptPassword(contrasenia);    
     data.contrasenia = hashedPassword;
+         
+    data.saldo = 0;
 
     const beneficiario = await this.beneficiarioRepo.findOne({ where: { correo: data.correo } });
     if (beneficiario) {
