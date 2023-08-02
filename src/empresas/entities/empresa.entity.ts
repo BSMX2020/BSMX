@@ -18,10 +18,7 @@ import { RequisitosEmpresa } from './requisitosEmpresa.entity';
 @Entity()
 export class Empresa {
   @PrimaryColumn({ type: 'varchar', length: 13 })
-  rfc: string;
-
-  @Column({ type: 'varchar', length: 255 })
-  folioSolicitud: string;
+  rfc: string;  
 
   @Column({ type: 'varchar', length: 255 })
   ingresoMensual: string;

@@ -16,6 +16,11 @@ export class CreateTransaccionDto {
   @ApiProperty()
   readonly monto: number;
 
+  @IsString()
+  @IsNotEmpty()  
+  @ApiProperty()
+  readonly descripcion: string;
+
   @IsNotEmpty()  
   @IsPositive()
   @ApiProperty()

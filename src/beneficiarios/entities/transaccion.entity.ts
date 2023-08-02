@@ -19,6 +19,9 @@ export class Transaccion {
   @Column({ type: 'int'})
   monto: number;
 
+  @Column({ type: 'varchar', length: 255 })
+  descripcion: string;
+
   @CreateDateColumn({
     type: 'date',
     default: () => 'CURRENT_DATE',

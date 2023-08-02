@@ -17,12 +17,7 @@ export class CreateEmpresaDto {
       'Formato de RFC inválido',
   })
   @ApiProperty()
-  readonly rfc: string;
-
-  @IsString()
-  @IsNotEmpty()   
-  @ApiProperty()
-  readonly folioSolicitud: string;
+  readonly rfc: string;  
 
   @IsString()
   @IsNotEmpty()   
