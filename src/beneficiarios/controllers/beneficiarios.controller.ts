@@ -15,8 +15,7 @@ import {
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 import { ParseIntPipe } from '../../common/parse-int.pipe';
-import { CreateBeneficiarioDto } from '../dtos/beneficiario.dto';
-import { LogInBeneficiarioDto } from '../dtos/beneficiario.dto';
+import { CreateBeneficiarioDto, UpdateBeneficiarioDto, LogInBeneficiarioDto } from '../dtos/beneficiario.dto';
 import { BeneficiariosService } from './../services/beneficiarios.service';
 
 @ApiTags('beneficiarios')
@@ -48,6 +47,14 @@ export class BeneficiariosController {
   @Post('login')
   logIn(@Body() payload: LogInBeneficiarioDto) {
     return this.beneficiariosService.logIn(payload);
+  }
+
+  @Put(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateBeneficiarioDto,
+  ) {
+    return this.beneficiariosService.update(id, payload);
   }
 
 }

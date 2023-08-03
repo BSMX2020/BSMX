@@ -4,8 +4,7 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
 import { Beneficiario } from '../entities/beneficiario.entity';
-import { CreateBeneficiarioDto } from '../dtos/beneficiario.dto';
-import { LogInBeneficiarioDto } from '../dtos/beneficiario.dto';
+import { CreateBeneficiarioDto, UpdateBeneficiarioDto, LogInBeneficiarioDto } from '../dtos/beneficiario.dto';
 
 import { DomiciliosService } from './domicilios.service';
 
@@ -105,6 +104,12 @@ export class BeneficiariosService {
 
     const newBeneficiario = this.beneficiarioRepo.create(data);    
     return this.beneficiarioRepo.save(newBeneficiario);
+  }
+
+  async update(id: number, changes: UpdateBeneficiarioDto) {
+    const beneficiario = await this.beneficiarioRepo.findOneBy({id});
+    this.beneficiarioRepo.merge(beneficiario, changes);    
+    return this.beneficiarioRepo.save(beneficiario);
   }
   
   async encryptPassword(password: string): Promise<string> {

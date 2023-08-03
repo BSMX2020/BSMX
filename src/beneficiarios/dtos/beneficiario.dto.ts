@@ -43,6 +43,8 @@ export class CreateBeneficiarioDto {
 
 }
 
+export class UpdateBeneficiarioDto extends PartialType(CreateBeneficiarioDto) {}
+
 export class LogInBeneficiarioDto {  
   
   @IsNotEmpty() 

@@ -6,6 +6,8 @@ import { Transaccion } from '../entities/transaccion.entity';
 import { CreateTransaccionDto } from '../dtos/transaccion.dto';
 
 import { BeneficiariosService } from './beneficiarios.service';
+import { UpdateBeneficiarioDto } from '../dtos/beneficiario.dto';
+
 
 @Injectable()
 export class TransaccionesService {
@@ -52,8 +54,24 @@ export class TransaccionesService {
       throw new NotFoundException(`Beneficiario Receptor ${data.beneficiarioReceptor} no encontrado`);
     }
 
+    if (beneficiarioEmisor.saldo < data.monto) {
+      throw new BadRequestException(`El beneficiario emisor no tiene saldo suficiente`);
+    }
+
+    beneficiarioEmisor.saldo = beneficiarioEmisor.saldo - data.monto;
+    beneficiarioReceptor.saldo = beneficiarioReceptor.saldo + data.monto;
+
     const newTransaccion = this.transaccionRepo.create(data);    
-    return this.transaccionRepo.save(newTransaccion);
+    const transaccion = this.transaccionRepo.save(newTransaccion);
+
+    if (!transaccion) {
+      throw new BadRequestException(`No se pudo realizar la transaccion`);
+    }
+
+    const beneficiarioEmisorUpdate = await this.beneficiarioService.update(beneficiarioEmisor.id, beneficiarioEmisor);
+    const beneficiarioReceptorUpdate = await this.beneficiarioService.update(beneficiarioReceptor.id, beneficiarioReceptor);
+
+    return transaccion;
   }
 
 }
