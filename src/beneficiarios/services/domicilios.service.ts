@@ -42,4 +42,7 @@ export class DomiciliosService {
     return this.domicilioRepo.save(domicilio);
   }
 
+  remove(id: number) {
+    return this.domicilioRepo.delete(id);
+  }
 }

@@ -123,4 +123,8 @@ export class BeneficiariosService {
     return verificationValue;
   }  
 
+  remove(id: number) {
+    return this.beneficiarioRepo.delete(id);
+  }
+
 }

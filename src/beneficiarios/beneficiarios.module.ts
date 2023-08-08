@@ -34,6 +34,6 @@ import { LineaCredito } from './entities/lineaCredito.entity';
     BeneficiariosService,        
     TransaccionesService,    
     LineasCreditoService],
-  exports: [BeneficiariosService],
+  exports: [BeneficiariosService, DomiciliosService],
 })
 export class BeneficiariosModule { }

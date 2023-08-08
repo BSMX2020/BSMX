@@ -17,8 +17,8 @@ export class CreateBeneficiarioDto {
   readonly nombre: string;
   
   @IsNotEmpty() 
-  @IsEmail() 
-  @ApiProperty()  
+  @IsEmail({}, { message: 'El formato de correo electrónico es inválido' }) 
+  @ApiProperty()    
   readonly correo: string;
 
   @IsNotEmpty()
@@ -48,7 +48,7 @@ export class UpdateBeneficiarioDto extends PartialType(CreateBeneficiarioDto) {}
 export class LogInBeneficiarioDto {  
   
   @IsNotEmpty() 
-  @IsEmail() 
+  @IsEmail({}, { message: 'El formato de correo electrónico es inválido' }) 
   @ApiProperty()  
   readonly correo: string;
 
