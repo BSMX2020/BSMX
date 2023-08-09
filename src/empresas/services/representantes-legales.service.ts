@@ -40,4 +40,19 @@ export class RepresentantesLegalesService {
     return this.representanteLegalRepo.save(newRepresentanteLegal);
   }
 
+  async createEmpresaDatos(data: CreateRepresentanteLegalDto) {
+
+    const representanteLegal = await this.representanteLegalRepo.findOne({ where: { curp: data.curp } });
+    if (representanteLegal) {
+      return null;
+    }
+
+    const newRepresentanteLegal = this.representanteLegalRepo.create(data);
+    return this.representanteLegalRepo.save(newRepresentanteLegal);
+  }
+
+  remove(curp: string) {
+    return this.representanteLegalRepo.delete(curp);
+  }
+
 }

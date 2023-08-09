@@ -40,15 +40,18 @@ export class PersonasService {
 
     const persona = await this.personaRepo.findOne({ where: { curp: data.curp } });
     if (persona) {
+      await this.removePersonaDatos(data.beneficiario);
       throw new BadRequestException(`Ya existe una persona registrada con el CURP ${data.curp}`);
     }
 
     const beneficiario = await this.beneficiariosService.findOneRelations(data.beneficiario);
     if (!beneficiario) {
+      await this.removePersonaDatos(data.beneficiario);
       throw new NotFoundException(`Id de Beneficiario ${data.beneficiario} no encontrado`);
     }
 
     if (beneficiario.persona) {
+      await this.removePersonaDatos(data.beneficiario);
       throw new HttpException({
         status: HttpStatus.BAD_REQUEST,
         error: `Ya existe una persona con el idBeneficiario = ${data.beneficiario} asignado`,
@@ -56,6 +59,7 @@ export class PersonasService {
     }
 
     if (beneficiario.empresa) {
+      await this.removePersonaDatos(data.beneficiario);
       throw new HttpException({
         status: HttpStatus.BAD_REQUEST,
         error: `Ya existe una empresa con el idBeneficiario = ${data.beneficiario} asignado`,
@@ -67,6 +71,8 @@ export class PersonasService {
   }
 
   async registerPersona(data: CreatePersonaDatosDto) {
+
+    // ----------------------------- Registro Domicilio
 
     var domicilioObject = {
       calle: data.calle,
@@ -80,9 +86,8 @@ export class PersonasService {
     }
 
     const domicilio = await this.domiciliosService.create(domicilioObject);
-    if (!domicilio) {
-      throw new BadRequestException(`Error de registro`);
-    }
+    
+    // ----------------------------- Registro Beneficiario
 
     var beneficiarioObject = {
       nombre: data.nombre,
@@ -90,14 +95,16 @@ export class PersonasService {
       contrasenia: data.contrasenia,
       foto: null,
       saldo: null,
-      domicilio: (await domicilio).id
+      domicilio: domicilio.id
     };
     
-    const beneficiario = this.beneficiariosService.create(beneficiarioObject);
-    if (!beneficiario) {
+    const respuestaBeneficiario = await this.beneficiariosService.createBeneficiarioDatos(beneficiarioObject);    
+    if (!respuestaBeneficiario.resultado) {            
       await this.domiciliosService.remove(domicilio.id);
-      throw new BadRequestException(`Error de registro`);
-    }
+      throw new BadRequestException(respuestaBeneficiario.mensaje);
+    }    
+
+    // ----------------------------- Registro Persona
 
     var personaObject = {
       curp: data.curp,
@@ -110,18 +117,20 @@ export class PersonasService {
       ocupacion: data.ocupacion,
       localidad: data.localidad,
       percepcionMensual: data.percepcionMensual,
-      beneficiario: (await beneficiario).id
+      beneficiario: respuestaBeneficiario.beneficiario
     };
 
-    const persona = this.create(personaObject);
-    if (!persona) {
-      await this.domiciliosService.remove((await domicilio).id);
-      await this.beneficiariosService.remove((await beneficiario).id);
-      throw new BadRequestException(`Error de registro`);
-    }
+    const persona = this.create(personaObject);    
 
     return persona;
 
   }
+
+  async removePersonaDatos(beneficiarioId: number) {
+
+    const beneficiario = await this.beneficiariosService.findOneRelations(beneficiarioId);      
+    await this.domiciliosService.remove(beneficiario.domicilio);
+    await this.beneficiariosService.remove(beneficiarioId);    
+  } 
 
 }

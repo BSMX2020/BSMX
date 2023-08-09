@@ -93,8 +93,8 @@ export class BeneficiariosService {
     data.saldo = 0;
 
     const beneficiario = await this.beneficiarioRepo.findOne({ where: { correo: data.correo } });
-    if (beneficiario) {
-      throw new BadRequestException(`Ya existe una persona registrada con ese Correo ${data.correo}`);
+    if (beneficiario){
+      throw new BadRequestException(`Ya existe una persona registrada con ese correo ${data.correo}`);
     }
     
     const domicilio = await this.domiciliosService.findOne(data.domicilio);
@@ -104,6 +104,39 @@ export class BeneficiariosService {
 
     const newBeneficiario = this.beneficiarioRepo.create(data);    
     return this.beneficiarioRepo.save(newBeneficiario);
+  }
+
+  async createBeneficiarioDatos(data: CreateBeneficiarioDto) {
+
+    const { contrasenia } = data;
+    const hashedPassword = await this.encryptPassword(contrasenia);    
+    data.contrasenia = hashedPassword;
+         
+    data.saldo = 0;
+    var respuesta = {
+      mensaje: "Beneficiario registrado con éxito",
+      resultado: true,
+      beneficiario: null
+    }
+
+    const beneficiario = await this.beneficiarioRepo.findOne({ where: { correo: data.correo } });
+    if (beneficiario){
+      respuesta.mensaje = `Ya existe una persona registrada con ese correo ${data.correo}`;
+      respuesta.resultado = false;
+      return respuesta;
+    }
+    
+    const domicilio = await this.domiciliosService.findOne(data.domicilio);
+    if (!domicilio) { 
+      respuesta.mensaje = `Id de Domicilio ${data.domicilio} no encontrado`;
+      respuesta.resultado = false;
+      return respuesta;
+    }
+
+    const newBeneficiario = this.beneficiarioRepo.create(data); 
+    respuesta.beneficiario = (await this.beneficiarioRepo.save(newBeneficiario)).id;   
+    return respuesta;
+    
   }
 
   async update(id: number, changes: UpdateBeneficiarioDto) {

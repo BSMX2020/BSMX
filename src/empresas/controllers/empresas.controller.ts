@@ -14,6 +14,7 @@ import {
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 import { CreateEmpresaDto } from '../../empresas/dto/empresa.dto';
+import { CreateEmpresaDatosDto } from '../../empresas/dto/empresaDatos.dto';
 import { EmpresasService } from './../services/empresas.service';
 
 @ApiTags('empresas')
@@ -35,6 +36,11 @@ export class EmpresasController {
   @Post()
   create(@Body() payload: CreateEmpresaDto) {
     return this.empresasService.create(payload);
+  }
+
+  @Post('/empresaDatos')
+  createPersonaDatos(@Body() payload: CreateEmpresaDatosDto) {
+    return this.empresasService.registerEmpresa(payload);
   }
 
 
