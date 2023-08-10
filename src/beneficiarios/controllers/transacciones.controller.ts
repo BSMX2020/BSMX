@@ -14,7 +14,7 @@ import {
 } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
-import { CreateTransaccionDto } from '../dtos/transaccion.dto';
+import { CreateTransaccionDto, CreateTransaccionCorreoDto } from '../dtos/transaccion.dto';
 import { TransaccionesService } from './../services/transacciones.service';
 
 @ApiTags('transacciones')
@@ -35,6 +35,11 @@ export class TransaccionesController {
   @Post()
   create(@Body() payload: CreateTransaccionDto) {
     return this.transaccionesService.create(payload);
+  }
+
+  @Post('/registrocorreo')
+  createByCorreo(@Body() payload: CreateTransaccionCorreoDto) {
+    return this.transaccionesService.createTransaccionByCorreo(payload);
   }
 
 }

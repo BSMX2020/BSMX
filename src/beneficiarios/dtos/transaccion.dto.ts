@@ -33,3 +33,27 @@ export class CreateTransaccionDto {
 
 
 }
+
+export class CreateTransaccionCorreoDto {     
+  
+  @IsOptional()
+  @IsPositive()  
+  @ApiProperty()
+  readonly monto: number;
+
+  @IsString()
+  @IsNotEmpty()  
+  @ApiProperty()
+  readonly descripcion: string;
+
+  @IsNotEmpty() 
+  @IsEmail({}, { message: 'El formato de correo electrónico es inválido' }) 
+  @ApiProperty() 
+  readonly correoBeneficiarioEmisor: string;
+
+  @IsNotEmpty() 
+  @IsEmail({}, { message: 'El formato de correo electrónico es inválido' }) 
+  @ApiProperty() 
+  readonly correoBeneficiarioReceptor: string;
+
+}

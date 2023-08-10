@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Transaccion } from '../entities/transaccion.entity';
-import { CreateTransaccionDto } from '../dtos/transaccion.dto';
+import { CreateTransaccionDto, CreateTransaccionCorreoDto } from '../dtos/transaccion.dto';
 
 import { BeneficiariosService } from './beneficiarios.service';
 import { UpdateBeneficiarioDto } from '../dtos/beneficiario.dto';
@@ -68,8 +68,40 @@ export class TransaccionesService {
       throw new BadRequestException(`No se pudo realizar la transaccion`);
     }
 
-    const beneficiarioEmisorUpdate = await this.beneficiarioService.update(beneficiarioEmisor.id, beneficiarioEmisor);
-    const beneficiarioReceptorUpdate = await this.beneficiarioService.update(beneficiarioReceptor.id, beneficiarioReceptor);
+    await this.beneficiarioService.update(beneficiarioEmisor.id, beneficiarioEmisor);
+    await this.beneficiarioService.update(beneficiarioReceptor.id, beneficiarioReceptor);
+
+    return transaccion;
+  }
+
+  async createTransaccionByCorreo(data: CreateTransaccionCorreoDto) {    
+    
+    const beneficiarioEmisor = await this.beneficiarioService.findOneByCorreo(data.correoBeneficiarioEmisor);
+    if (!beneficiarioEmisor) { 
+      throw new NotFoundException(`Beneficiario Emisor ${data.correoBeneficiarioEmisor} no encontrado`);
+    }
+
+    const beneficiarioReceptor = await this.beneficiarioService.findOneByCorreo(data.correoBeneficiarioReceptor);
+    if (!beneficiarioReceptor) { 
+      throw new NotFoundException(`Beneficiario Receptor ${data.correoBeneficiarioReceptor} no encontrado`);
+    }
+
+    if (beneficiarioEmisor.saldo < data.monto) {
+      throw new BadRequestException(`El beneficiario emisor no tiene saldo suficiente`);
+    }
+
+    beneficiarioEmisor.saldo = beneficiarioEmisor.saldo - data.monto;
+    beneficiarioReceptor.saldo = beneficiarioReceptor.saldo + data.monto;
+
+    const newTransaccion = this.transaccionRepo.create(data);    
+    const transaccion = await this.transaccionRepo.save(newTransaccion);
+
+    if (!transaccion) {
+      throw new BadRequestException(`No se pudo realizar la transaccion`);
+    }
+
+    await this.beneficiarioService.update(beneficiarioEmisor.id, beneficiarioEmisor);
+    await this.beneficiarioService.update(beneficiarioReceptor.id, beneficiarioReceptor);
 
     return transaccion;
   }
