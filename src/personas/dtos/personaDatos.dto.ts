@@ -140,5 +140,35 @@ import {
     @ApiProperty()
     readonly numeroInterior: string;  
 
+    // ---------------------------- Referencia
+
+    @IsString()
+    @IsNotEmpty()   
+    @ApiProperty()
+    readonly nombrePrimerReferencia: string;
+  
+    @IsString()
+    @IsNotEmpty()   
+    @Matches(/^\d{10}$/, {
+      message:
+        'Formato de teléfono debe de ser de 10 dígitos',
+    })  
+    @ApiProperty()
+    readonly telefonoPrimerReferencia: string;
+
+    @IsString()
+    @IsNotEmpty()   
+    @ApiProperty()
+    readonly nombreSegundaReferencia: string;
+  
+    @IsString()
+    @IsNotEmpty()   
+    @Matches(/^\d{10}$/, {
+      message:
+        'Formato de teléfono debe de ser de 10 dígitos',
+    })  
+    @ApiProperty()
+    readonly telefonoSegundaReferencia: string;
+
   
   }

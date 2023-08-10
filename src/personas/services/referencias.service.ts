@@ -12,6 +12,7 @@ export class ReferenciasService {
 
   constructor(
     @InjectRepository(Referencia) private referenciaRepo: Repository<Referencia>,    
+    @Inject(forwardRef(() => PersonasService))
     private personasService: PersonasService,
   ) { }
 
@@ -40,6 +41,26 @@ export class ReferenciasService {
 
     const newReferencia = this.referenciaRepo.create(data);
     return this.referenciaRepo.save(newReferencia);
+  }
+
+  async createReferenciaPersonaDatos(data: CreateReferenciaDto) {    
+
+    var respuesta = {
+      mensaje: "Referencia registrado con éxito",
+      resultado: true,      
+    }
+
+    const persona = await this.personasService.findOne(data.persona);
+
+    if (!persona) {            
+      respuesta.mensaje = `CURP de Persona ${data.persona} no encontrada`;
+      respuesta.resultado = false;
+      return respuesta;
+    }
+
+    const newReferencia = this.referenciaRepo.create(data);
+    await this.referenciaRepo.save(newReferencia);
+    return respuesta;
   }
 
 }

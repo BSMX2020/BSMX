@@ -8,6 +8,7 @@ import { CreatePersonaDatosDto } from '../dtos/personaDatos.dto';
 
 import { BeneficiariosService } from '../../beneficiarios/services/beneficiarios.service';
 import { DomiciliosService } from '../../beneficiarios/services/domicilios.service';
+import { ReferenciasService } from './referencias.service';
 import { CreateBeneficiarioDto} from '../../beneficiarios/dtos/beneficiario.dto';
 
 @Injectable()
@@ -17,6 +18,8 @@ export class PersonasService {
     @InjectRepository(Persona) private personaRepo: Repository<Persona>,    
     private beneficiariosService: BeneficiariosService,
     private domiciliosService: DomiciliosService,
+    @Inject(forwardRef(() => ReferenciasService))
+    private referenciasService: ReferenciasService,
   ) { }
 
   findAll() {
@@ -120,10 +123,32 @@ export class PersonasService {
       beneficiario: respuestaBeneficiario.beneficiario
     };
 
-    const persona = this.create(personaObject);    
+    const persona = await this.create(personaObject);    
+
+    // ----------------------------- Registro Referencias    
+
+    const respuestaPrimerReferencia = await this.registerReferencia(
+      data.nombrePrimerReferencia,
+      data.telefonoPrimerReferencia,
+      persona.curp
+    );          
+   
+    const respuestaSegundaReferencia = await this.registerReferencia(
+      data.nombreSegundaReferencia,
+      data.telefonoSegundaReferencia,
+      persona.curp
+    );     
+
+    if (!respuestaPrimerReferencia.resultado || !respuestaSegundaReferencia.resultado) {                  
+      await this.removeReferenciasPersonaDatos(domicilio.id, respuestaBeneficiario.beneficiario, persona.curp);
+      if(!respuestaPrimerReferencia.resultado) {
+        throw new BadRequestException(respuestaPrimerReferencia.mensaje);
+      } else {
+        throw new BadRequestException(respuestaSegundaReferencia.mensaje);
+      }      
+    }   
 
     return persona;
-
   }
 
   async removePersonaDatos(beneficiarioId: number) {
@@ -132,5 +157,28 @@ export class PersonasService {
     await this.domiciliosService.remove(beneficiario.domicilio);
     await this.beneficiariosService.remove(beneficiarioId);    
   } 
+
+  remove(curp: string) {
+    return this.personaRepo.delete(curp);
+  }
+
+  async registerReferencia(nombre: string, telefono: string, curp: string) {
+
+    var referenciaObject = {
+      nombre: nombre,
+      telefono: telefono,      
+      persona: curp
+    };
+
+    const respuestaReferencia =
+      await this.referenciasService.createReferenciaPersonaDatos(referenciaObject);    
+    return respuestaReferencia;
+  }
+
+  async removeReferenciasPersonaDatos(domicilioId: number, beneficiarioId: number, personaId: string) {
+    await this.domiciliosService.remove(domicilioId);
+    await this.beneficiariosService.remove(beneficiarioId);
+    await this.remove(personaId);
+  }  
 
 }
