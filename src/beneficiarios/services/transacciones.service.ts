@@ -93,8 +93,15 @@ export class TransaccionesService {
     beneficiarioEmisor.saldo = beneficiarioEmisor.saldo - data.monto;
     beneficiarioReceptor.saldo = beneficiarioReceptor.saldo + data.monto;
 
-    const newTransaccion = this.transaccionRepo.create(data);    
-    const transaccion = await this.transaccionRepo.save(newTransaccion);
+    var dataTransaccion = {
+      monto: data.monto,
+      descripcion: data.descripcion,
+      beneficiarioEmisor: beneficiarioEmisor.id,
+      beneficiarioReceptor: beneficiarioReceptor.id,
+    }
+
+    const newTransaccion = this.transaccionRepo.create(dataTransaccion);    
+    const transaccion = this.transaccionRepo.save(newTransaccion);
 
     if (!transaccion) {
       throw new BadRequestException(`No se pudo realizar la transaccion`);

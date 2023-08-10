@@ -38,20 +38,32 @@ export class BeneficiariosService {
 
   async findOneByCorreo(correo: string) {
 
-    const beneficiario = await this.beneficiarioRepo.findOne({ where: { correo } });
+    const beneficiario = await this.beneficiarioRepo.findOne({
+      where: { correo },
+      relations: [
+        'domicilio', 
+        'persona', 
+        'empresa', 
+        'transaccionesEmisor', 
+        'transaccionesReceptor',
+        'lineaCredito'
+      ],
+    });
     if (!beneficiario) {
-      throw new NotFoundException(`Beneficiario #${correo} no encontrado`);
+      throw new NotFoundException(`Beneficiario ${correo} no encontrado`);
     }
     return beneficiario;
   }
 
   async logIn(data: LogInBeneficiarioDto) {       
 
-    const beneficiario = await this.beneficiarioRepo.findOne({
-      where: {
-        correo: data.correo,        
-      }
-    });
+    // const beneficiario = await this.beneficiarioRepo.findOne({
+    //   where: {
+    //     correo: data.correo,        
+    //   }
+    // });
+
+    const beneficiario = await this.findOneByCorreo(data.correo);
     
     if (!beneficiario) {
       throw new NotFoundException(`Correo y/o Contraseña incorrectos`);
