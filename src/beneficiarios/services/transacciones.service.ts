@@ -98,7 +98,7 @@ export class TransaccionesService {
       descripcion: data.descripcion,
       beneficiarioEmisor: beneficiarioEmisor.id,
       beneficiarioReceptor: beneficiarioReceptor.id,
-    }
+    }        
 
     const newTransaccion = this.transaccionRepo.create(dataTransaccion);    
     const transaccion = this.transaccionRepo.save(newTransaccion);
