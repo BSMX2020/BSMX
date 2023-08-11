@@ -74,6 +74,45 @@ export class TransaccionesService {
     return transaccion;
   }
 
+  // async createTransaccionByCorreo(data: CreateTransaccionCorreoDto) {    
+    
+  //   const beneficiarioEmisor = await this.beneficiarioService.findOneByCorreo(data.correoBeneficiarioEmisor);
+  //   if (!beneficiarioEmisor) { 
+  //     throw new NotFoundException(`Beneficiario Emisor ${data.correoBeneficiarioEmisor} no encontrado`);
+  //   }
+
+  //   const beneficiarioReceptor = await this.beneficiarioService.findOneByCorreo(data.correoBeneficiarioReceptor);
+  //   if (!beneficiarioReceptor) { 
+  //     throw new NotFoundException(`Beneficiario Receptor ${data.correoBeneficiarioReceptor} no encontrado`);
+  //   }
+
+  //   if (beneficiarioEmisor.saldo < data.monto) {
+  //     throw new BadRequestException(`El beneficiario emisor no tiene saldo suficiente`);
+  //   }
+
+  //   beneficiarioEmisor.saldo = beneficiarioEmisor.saldo - data.monto;
+  //   beneficiarioReceptor.saldo = beneficiarioReceptor.saldo + data.monto;
+
+  //   var dataTransaccion = {
+  //     monto: data.monto,
+  //     descripcion: data.descripcion,
+  //     beneficiarioEmisor: beneficiarioEmisor.id,
+  //     beneficiarioReceptor: beneficiarioReceptor.id,
+  //   }        
+
+  //   const newTransaccion = this.transaccionRepo.create(dataTransaccion);    
+  //   const transaccion = this.transaccionRepo.save(newTransaccion);
+
+  //   if (!transaccion) {
+  //     throw new BadRequestException(`No se pudo realizar la transaccion`);
+  //   }
+
+  //   await this.beneficiarioService.update(beneficiarioEmisor.id, beneficiarioEmisor);
+  //   await this.beneficiarioService.update(beneficiarioReceptor.id, beneficiarioReceptor);
+
+  //   return transaccion;
+  // }
+
   async createTransaccionByCorreo(data: CreateTransaccionCorreoDto) {    
     
     const beneficiarioEmisor = await this.beneficiarioService.findOneByCorreo(data.correoBeneficiarioEmisor);
@@ -84,14 +123,7 @@ export class TransaccionesService {
     const beneficiarioReceptor = await this.beneficiarioService.findOneByCorreo(data.correoBeneficiarioReceptor);
     if (!beneficiarioReceptor) { 
       throw new NotFoundException(`Beneficiario Receptor ${data.correoBeneficiarioReceptor} no encontrado`);
-    }
-
-    if (beneficiarioEmisor.saldo < data.monto) {
-      throw new BadRequestException(`El beneficiario emisor no tiene saldo suficiente`);
-    }
-
-    beneficiarioEmisor.saldo = beneficiarioEmisor.saldo - data.monto;
-    beneficiarioReceptor.saldo = beneficiarioReceptor.saldo + data.monto;
+    }    
 
     var dataTransaccion = {
       monto: data.monto,
@@ -100,17 +132,7 @@ export class TransaccionesService {
       beneficiarioReceptor: beneficiarioReceptor.id,
     }        
 
-    const newTransaccion = this.transaccionRepo.create(dataTransaccion);    
-    const transaccion = this.transaccionRepo.save(newTransaccion);
-
-    if (!transaccion) {
-      throw new BadRequestException(`No se pudo realizar la transaccion`);
-    }
-
-    await this.beneficiarioService.update(beneficiarioEmisor.id, beneficiarioEmisor);
-    await this.beneficiarioService.update(beneficiarioReceptor.id, beneficiarioReceptor);
-
-    return transaccion;
+    return await this.create(dataTransaccion);
   }
 
 }
