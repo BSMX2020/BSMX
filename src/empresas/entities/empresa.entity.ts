@@ -33,9 +33,6 @@ export class Empresa {
   gasto: string;
 
   @Column({ type: 'varchar', length: 255 })
-  percepcionMensual: string;
-
-  @Column({ type: 'varchar', length: 255 })
   utilidad: string;
 
   @Column({ type: 'varchar', length: 255 })

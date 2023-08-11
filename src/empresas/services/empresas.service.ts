@@ -156,7 +156,6 @@ export class EmpresasService {
       antiguedad: data.antiguedad,
       tipoGiro: data.tipoGiro,
       gasto: data.gasto,
-      percepcionMensual: data.percepcionMensual,
       utilidad: data.utilidad,
       empresaTipo: data.empresaTipo,      
       beneficiario: respuestaBeneficiario.beneficiario,

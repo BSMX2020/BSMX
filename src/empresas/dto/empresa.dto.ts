@@ -42,11 +42,6 @@ export class CreateEmpresaDto {
   @IsString()
   @IsNotEmpty()   
   @ApiProperty()
-  readonly percepcionMensual: string;
-
-  @IsString()
-  @IsNotEmpty()   
-  @ApiProperty()
   readonly utilidad: string;
 
   @IsString()
