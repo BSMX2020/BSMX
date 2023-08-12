@@ -32,6 +32,11 @@ export class TransaccionesController {
     return this.transaccionesService.findOneRelations(id);
   }
 
+  @Get('correo/:correo')
+  getByCorreo(@Param('correo') correo: string) {
+    return this.transaccionesService.findByCorreo(correo);
+  }
+
   @Post()
   create(@Body() payload: CreateTransaccionDto) {
     return this.transaccionesService.create(payload);
