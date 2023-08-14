@@ -54,12 +54,14 @@ export class TransaccionesService {
 
     const beneficiario = await this.beneficiarioService.findOneByCorreo(correo); 
     var beneficiarioEmisorId = beneficiario.id; 
+    var beneficiarioReceptorId = beneficiario.id;
 
     const transacciones = await this.transaccionRepo
                         .createQueryBuilder('transaccion')
-                        .leftJoinAndSelect('transaccion.beneficiarioEmisor', 'beneficiarioEmisor')
+                        .leftJoinAndSelect('transaccion.beneficiarioEmisor', 'beneficiarioEmisor')                        
                         .leftJoinAndSelect('transaccion.beneficiarioReceptor', 'beneficiarioReceptor')
                         .where('beneficiarioEmisor.id = :beneficiarioEmisorId', { beneficiarioEmisorId }) // Aplicando el filtro WHERE en la relación user
+                        .orWhere('beneficiarioReceptor.id = :beneficiarioReceptorId', { beneficiarioReceptorId })
                         .getMany();
   
 
