@@ -1,23 +1,18 @@
 import {
   Controller,
   Get,
-  Query,
   Param,
   Post,
   Body,
-  Put,
-  Delete,
-  HttpStatus,
-  HttpCode,
-  Res,
-  // ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 
-import { ParseIntPipe } from '../../common/parse-int.pipe';
 import { CreateReferenciaDto } from '../dtos/referencia.dto';
 import { ReferenciasService } from './../services/referencias.service';
+import { AuthGuard} from '@nestjs/passport'
 
+@UseGuards(AuthGuard('jwt'))
 @ApiTags('referencias')
 @Controller('referencias')
 export class ReferenciasController {

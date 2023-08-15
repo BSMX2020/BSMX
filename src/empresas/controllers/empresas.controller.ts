@@ -1,22 +1,19 @@
 import {
   Controller,
   Get,
-  Query,
   Param,
   Post,
   Body,
-  Put,
-  Delete,
-  HttpStatus,
-  HttpCode,
-  Res,
+  UseGuards
 } from '@nestjs/common';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 
 import { CreateEmpresaDto } from '../../empresas/dto/empresa.dto';
 import { CreateEmpresaDatosDto } from '../../empresas/dto/empresaDatos.dto';
 import { EmpresasService } from './../services/empresas.service';
+import { AuthGuard} from '@nestjs/passport'
 
+@UseGuards(AuthGuard('jwt'))
 @ApiTags('empresas')
 @Controller('empresas')
 export class EmpresasController {

@@ -1,21 +1,18 @@
 import {
   Controller,
   Get,
-  Query,
   Param,
   Post,
   Body,
-  Put,
-  Delete,
-  HttpStatus,
-  HttpCode,
-  Res,  
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 
 import { CreateRepresentanteLegalDto } from './../dto/representante-legal.dto';
 import { RepresentantesLegalesService } from './../services/representantes-legales.service';
+import { AuthGuard} from '@nestjs/passport'
 
+@UseGuards(AuthGuard('jwt'))
 @ApiTags('representantes-legales')
 @Controller('representantes-legales')
 export class RepresentantesLegalesController {

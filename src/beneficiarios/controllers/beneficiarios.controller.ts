@@ -1,23 +1,22 @@
 import {
   Controller,
   Get,
-  Query,
   Param,
   Post,
   Body,
   Put,
-  Delete,
-  HttpStatus,
-  HttpCode,
-  Res,
-  // ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 
 import { ParseIntPipe } from '../../common/parse-int.pipe';
 import { CreateBeneficiarioDto, UpdateBeneficiarioDto, LogInBeneficiarioDto } from '../dtos/beneficiario.dto';
 import { BeneficiariosService } from './../services/beneficiarios.service';
+import { Public } from '../../auth/decorators/public.decorator'
+import { AuthGuard} from '@nestjs/passport'
 
+//@UseGuards(ApiKeyGuard)
+@UseGuards(AuthGuard('jwt'))
 @ApiTags('beneficiarios')
 @Controller('beneficiarios')
 export class BeneficiariosController {
@@ -44,6 +43,7 @@ export class BeneficiariosController {
     return this.beneficiariosService.create(payload);
   }
 
+  @Public()
   @Post('login')
   logIn(@Body() payload: LogInBeneficiarioDto) {
     return this.beneficiariosService.logIn(payload);

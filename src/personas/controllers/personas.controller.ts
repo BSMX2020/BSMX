@@ -1,23 +1,19 @@
 import {
   Controller,
-  Get,
-  Query,
+  Get,  
   Param,
   Post,
   Body,
-  Put,
-  Delete,
-  HttpStatus,
-  HttpCode,
-  Res,
-  // ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 import { CreatePersonaDto } from '../../personas/dtos/persona.dto';
 import { CreatePersonaDatosDto } from '../../personas/dtos/personaDatos.dto';
 import { PersonasService } from '../../personas/services/personas.service';
+import { AuthGuard} from '@nestjs/passport'
 
+@UseGuards(AuthGuard('jwt'))
 @ApiTags('personas')
 @Controller('personas')
 export class PersonasController {

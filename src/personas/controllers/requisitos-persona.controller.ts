@@ -1,22 +1,18 @@
 import {
   Controller,
   Get,
-  Query,
   Param,
   Post,
   Body,
-  Put,
-  Delete,
-  HttpStatus,
-  HttpCode,
-  Res,
-  // ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 
 import { CreateRequisitosPersonaDto } from '../dtos/requisitosPersona.dto';
 import { RequisitosPersonaService } from './../services/requisitos-persona.service';
+import { AuthGuard} from '@nestjs/passport'
 
+@UseGuards(AuthGuard('jwt'))
 @ApiTags('requisitos persona')
 @Controller('requisitos-persona')
 export class RequisitosPersonaController {

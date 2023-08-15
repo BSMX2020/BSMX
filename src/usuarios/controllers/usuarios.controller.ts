@@ -1,23 +1,19 @@
 import {
   Controller,
   Get,
-  Query,
   Param,
   Post,
   Body,
-  Put,
-  Delete,
-  HttpStatus,
-  HttpCode,
-  Res,  
-  // ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 
-import { ParseIntPipe, } from '../../common/parse-int.pipe';
+import { Public } from '../../auth/decorators/public.decorator'
 import { CreateUsuarioDto } from '../dtos/usuario.dto';
 import { UsuariosService } from './../services/usuarios.service';
+import { AuthGuard} from '@nestjs/passport'
 
+@UseGuards(AuthGuard('jwt'))
 @ApiTags('usuarios')
 @Controller('usuarios')
 export class UsuariosController {
@@ -39,6 +35,7 @@ export class UsuariosController {
     return this.usuariosService.create(payload);
   }
 
+  @Public()
   @Post('login')
   logIn(@Body() payload: CreateUsuarioDto) {
     return this.usuariosService.logIn(payload);

@@ -1,23 +1,18 @@
 import {
   Controller,
   Get,
-  Query,
   Param,
   Post,
   Body,
-  Put,
-  Delete,
-  HttpStatus,
-  HttpCode,
-  Res,
-  // ParseIntPipe,
+  UseGuards
 } from '@nestjs/common';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 
-import { ParseIntPipe } from '../../common/parse-int.pipe';
 import { CreateLineaCreditoDto } from '../dtos/lineaCredito.dto';
 import { LineasCreditoService } from './../services/lineas-credito.service';
+import { AuthGuard} from '@nestjs/passport'
 
+@UseGuards(AuthGuard('jwt'))
 @ApiTags('lineas de credito')
 @Controller('lineas-credito')
 export class LineasCreditoController {

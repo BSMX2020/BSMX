@@ -55,13 +55,7 @@ export class BeneficiariosService {
     return beneficiario;
   }
 
-  async logIn(data: LogInBeneficiarioDto) {       
-
-    // const beneficiario = await this.beneficiarioRepo.findOne({
-    //   where: {
-    //     correo: data.correo,        
-    //   }
-    // });
+  async logIn(data: LogInBeneficiarioDto) {           
 
     const beneficiario = await this.findOneByCorreo(data.correo);
     

@@ -1,22 +1,18 @@
 import {
   Controller,
   Get,
-  Query,
   Param,
   Post,
   Body,
-  Put,
-  Delete,
-  HttpStatus,
-  HttpCode,
-  Res,
-  // ParseIntPipe,
+  UseGuards
 } from '@nestjs/common';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 
 import { CreateTransaccionDto, CreateTransaccionCorreoDto } from '../dtos/transaccion.dto';
 import { TransaccionesService } from './../services/transacciones.service';
+import { AuthGuard} from '@nestjs/passport'
 
+@UseGuards(AuthGuard('jwt'))
 @ApiTags('transacciones')
 @Controller('transaccion')
 export class TransaccionesController {
