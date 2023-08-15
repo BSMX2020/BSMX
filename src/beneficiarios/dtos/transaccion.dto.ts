@@ -21,6 +21,11 @@ export class CreateTransaccionDto {
   @ApiProperty()
   readonly descripcion: string;
 
+  @IsDateString()
+  @IsNotEmpty()  
+  @ApiProperty()
+  readonly fecha: Date;
+
   @IsNotEmpty()  
   @IsPositive()
   @ApiProperty()

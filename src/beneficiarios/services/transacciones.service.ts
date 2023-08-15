@@ -7,6 +7,8 @@ import { CreateTransaccionDto, CreateTransaccionCorreoDto } from '../dtos/transa
 
 import { BeneficiariosService } from './beneficiarios.service';
 import { UpdateBeneficiarioDto } from '../dtos/beneficiario.dto';
+import { DateTime } from 'luxon';
+
 
 
 @Injectable()
@@ -112,6 +114,7 @@ export class TransaccionesService {
       descripcion: data.descripcion,
       beneficiarioEmisor: beneficiarioEmisor.id,
       beneficiarioReceptor: beneficiarioReceptor.id,
+      fecha: DateTime.now().setZone('America/Mexico_City')
     }        
 
     return await this.create(dataTransaccion);

@@ -22,7 +22,7 @@
     "migrations:generate": "npm run build && npm run typeorm -- migration:generate",
     "migrations:run": "npm run typeorm -- migration:run",
     "migrations:show": "npm run typeorm -- migration:show",
-    "migrations:drop": "npm run typeorm -- schema:drop"    
+    "migrations:drop": "npm run typeorm -- schema:drop"
   },
   "dependencies": {
     "@nestjs/axios": "^2.0.0",
@@ -38,6 +38,7 @@
     "class-validator": "^0.14.0",
     "dotenv": "^16.1.4",
     "joi": "^17.9.2",
+    "luxon": "^3.4.0",
     "pg": "^8.11.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",

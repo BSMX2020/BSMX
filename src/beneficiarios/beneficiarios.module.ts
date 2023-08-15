@@ -17,6 +17,9 @@ import { LineasCreditoController } from './controllers/lineas-credito.controller
 import { LineasCreditoService } from './services/lineas-credito.service';
 import { LineaCredito } from './entities/lineaCredito.entity';
 
+import { DateTime } from 'luxon'; // Importa DateTime de luxon
+
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([
@@ -33,7 +36,8 @@ import { LineaCredito } from './entities/lineaCredito.entity';
     DomiciliosService,
     BeneficiariosService,        
     TransaccionesService,    
-    LineasCreditoService],
+    LineasCreditoService,    
+  ],    
   exports: [BeneficiariosService, DomiciliosService],
 })
 export class BeneficiariosModule { }

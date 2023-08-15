@@ -22,15 +22,8 @@ export class Transaccion {
   @Column({ type: 'varchar', length: 255 })
   descripcion: string;
 
-  // @CreateDateColumn({
-  //   type: 'date',
-  //   default: () => 'CURRENT_DATE',
-  // })
-  // fecha: Date;
-
-  @CreateDateColumn({
-    type: 'timestamp with time zone',
-    default: () => 'CURRENT_TIMESTAMP',
+  @Column({
+    type: 'date',    
   })
   fecha: Date;
 
