@@ -34,22 +34,6 @@ export class TransaccionesService {
     return transaccion;
   }
 
-  // async findByCorreo(correo: string) {
-
-  //   const beneficiario = await this.beneficiarioService.findOneByCorreo(correo);
-
-  //   const transaccion = await this.transaccionRepo.find({
-  //     where: {
-  //       beneficiarioEmisor: beneficiario.id
-  //     },
-  //     relations: ['beneficiarioEmisor', 'beneficiarioReceptor'] 
-  //   });
-  //   if (!transaccion) {
-  //     throw new NotFoundException(`No existen transacciones para el beneficiario con correo ${correo}`);
-  //   }
-  //   return transaccion;
-  // }
-
   async findByCorreo(correo: string) {
 
     const beneficiario = await this.beneficiarioService.findOneByCorreo(correo); 
