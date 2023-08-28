@@ -50,7 +50,7 @@ export class AuthService {
   }
 
   generateBeneficiarioJWT(beneficiario: Beneficiario){
-    const payload: PayloadToken = { sub: beneficiario.id };
+    const payload: PayloadToken = { role: "beneficiario", sub: beneficiario.id };
     return {
       access_token: this.jwtService.sign(payload),
       beneficiario,
@@ -58,7 +58,7 @@ export class AuthService {
   }
 
   generateUsuarioJWT(usuario: Usuario){
-    const payload: PayloadToken = { sub: usuario.id };
+    const payload: PayloadToken = { role: "promotor", sub: usuario.id };
     return {
       access_token: this.jwtService.sign(payload),
       usuario,
