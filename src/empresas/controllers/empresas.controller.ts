@@ -23,11 +23,13 @@ export class EmpresasController {
 
   constructor(private empresasService: EmpresasService) { }
 
+  @Roles(Role.PROMOTOR)
   @Get()
   findAll() {
     return this.empresasService.findAll();
   }
 
+  @Roles(Role.PROMOTOR, Role.BENEFICIARIO)
   @Get(':rfc')
   get(@Param('rfc') rfc: string) {
     return this.empresasService.findOne(rfc);
