@@ -13,8 +13,9 @@ import { TransaccionesService } from './../services/transacciones.service';
 import { AuthGuard} from '@nestjs/passport';
 import { Roles } from '../../auth/decorators/roles.decorator';
 import { Role } from '../../auth/models/roles.models';
+import { RolesGuard } from '../../auth/guards/roles/roles.guard';
 
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(AuthGuard('jwt'), RolesGuard)
 @ApiTags('transacciones')
 @Controller('transaccion')
 export class TransaccionesController {

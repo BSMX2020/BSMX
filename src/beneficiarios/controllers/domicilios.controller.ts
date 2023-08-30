@@ -13,10 +13,11 @@ import { ParseIntPipe } from '../../common/parse-int.pipe';
 import { CreateDomicilioDto, UpdateDomicilioDto } from '../dtos/domicilio.dto';
 import { DomiciliosService } from './../services/domicilios.service';
 import { AuthGuard} from '@nestjs/passport';
+import { RolesGuard } from '../../auth/guards/roles/roles.guard';
 import { Roles } from '../../auth/decorators/roles.decorator';
 import { Role } from '../../auth/models/roles.models';
 
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(AuthGuard('jwt'), RolesGuard)
 @ApiTags('domicilios')
 @Controller('domicilios')
 export class DomiciliosController {

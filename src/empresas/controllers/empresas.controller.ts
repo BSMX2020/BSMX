@@ -14,7 +14,7 @@ import { EmpresasService } from './../services/empresas.service';
 import { Roles } from '../../auth/decorators/roles.decorator';
 import { Role } from '../../auth/models/roles.models';
 import { AuthGuard} from '@nestjs/passport'
-import { RolesGuard } from '../../auth/guards/roles/roles.guard'
+import { RolesGuard } from '../../auth/guards/roles/roles.guard';
 
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 @ApiTags('empresas')

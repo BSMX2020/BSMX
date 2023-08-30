@@ -11,9 +11,10 @@ import { ApiTags } from '@nestjs/swagger';
 import { Public } from '../../auth/decorators/public.decorator'
 import { CreateUsuarioDto } from '../dtos/usuario.dto';
 import { UsuariosService } from './../services/usuarios.service';
-import { AuthGuard} from '@nestjs/passport'
+import { AuthGuard} from '@nestjs/passport';
+import { RolesGuard } from '../../auth/guards/roles/roles.guard';
 
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(AuthGuard('jwt'), RolesGuard)
 @ApiTags('usuarios')
 @Controller('usuarios')
 export class UsuariosController {

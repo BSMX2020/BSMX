@@ -14,10 +14,11 @@ import { CreateBeneficiarioDto, UpdateBeneficiarioDto, LogInBeneficiarioDto } fr
 import { BeneficiariosService } from './../services/beneficiarios.service';
 import { Public } from '../../auth/decorators/public.decorator';
 import { AuthGuard} from '@nestjs/passport';
+import { RolesGuard } from '../../auth/guards/roles/roles.guard';
 import { Roles } from '../../auth/decorators/roles.decorator';
 import { Role } from '../../auth/models/roles.models';
 
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(AuthGuard('jwt'), RolesGuard)
 @ApiTags('beneficiarios')
 @Controller('beneficiarios')
 export class BeneficiariosController {

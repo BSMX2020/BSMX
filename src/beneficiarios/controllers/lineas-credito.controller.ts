@@ -13,8 +13,9 @@ import { LineasCreditoService } from './../services/lineas-credito.service';
 import { AuthGuard} from '@nestjs/passport';
 import { Roles } from '../../auth/decorators/roles.decorator';
 import { Role } from '../../auth/models/roles.models';
+import { RolesGuard } from '../../auth/guards/roles/roles.guard';
 
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(AuthGuard('jwt'), RolesGuard)
 @ApiTags('lineas de credito')
 @Controller('lineas-credito')
 export class LineasCreditoController {

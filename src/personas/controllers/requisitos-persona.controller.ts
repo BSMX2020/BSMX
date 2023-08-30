@@ -11,8 +11,9 @@ import { ApiTags } from '@nestjs/swagger';
 import { CreateRequisitosPersonaDto } from '../dtos/requisitosPersona.dto';
 import { RequisitosPersonaService } from './../services/requisitos-persona.service';
 import { AuthGuard} from '@nestjs/passport'
+import { RolesGuard } from '../../auth/guards/roles/roles.guard';
 
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(AuthGuard('jwt'), RolesGuard)
 @ApiTags('requisitos persona')
 @Controller('requisitos-persona')
 export class RequisitosPersonaController {

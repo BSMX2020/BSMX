@@ -11,8 +11,9 @@ import { ApiTags } from '@nestjs/swagger';
 import { CreateReferenciaDto } from '../dtos/referencia.dto';
 import { ReferenciasService } from './../services/referencias.service';
 import { AuthGuard} from '@nestjs/passport'
+import { RolesGuard } from '../../auth/guards/roles/roles.guard';
 
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(AuthGuard('jwt'), RolesGuard)
 @ApiTags('referencias')
 @Controller('referencias')
 export class ReferenciasController {

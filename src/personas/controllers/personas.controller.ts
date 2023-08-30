@@ -12,8 +12,9 @@ import { CreatePersonaDto } from '../../personas/dtos/persona.dto';
 import { CreatePersonaDatosDto } from '../../personas/dtos/personaDatos.dto';
 import { PersonasService } from '../../personas/services/personas.service';
 import { AuthGuard} from '@nestjs/passport'
+import { RolesGuard } from '../../auth/guards/roles/roles.guard';
 
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(AuthGuard('jwt'), RolesGuard)
 @ApiTags('personas')
 @Controller('personas')
 export class PersonasController {
