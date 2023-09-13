@@ -5,6 +5,7 @@ import {
   Post,
   Body,
   Put,
+  Patch,
   UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
@@ -56,7 +57,7 @@ export class BeneficiariosController {
     return this.beneficiariosService.logIn(payload);
   }
 
-  @Roles(Role.BENEFICIARIO, Role.PROMOTOR)
+  @Roles(Role.BENEFICIARIO)
   @Put(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
@@ -64,5 +65,15 @@ export class BeneficiariosController {
   ) {
     return this.beneficiariosService.update(id, payload);
   }
+
+  @Roles(Role.BENEFICIARIO)
+  @Patch('actualizar/:id')
+  updatePassword(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload,
+  ) {
+    return this.beneficiariosService.updatePassword(id, payload);
+  }
+
 
 }

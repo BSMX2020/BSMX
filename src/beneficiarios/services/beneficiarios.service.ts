@@ -150,6 +150,18 @@ export class BeneficiariosService {
     this.beneficiarioRepo.merge(beneficiario, changes);    
     return this.beneficiarioRepo.save(beneficiario);
   }
+
+  async updatePassword(id: number, changes) {
+    const beneficiario = await this.beneficiarioRepo.findOneBy({id});
+    const { contraseniaAntigua, contraseniaNueva } = changes;
+    const passwordVerificationValue = await this.checkPassword(contraseniaAntigua, beneficiario.contrasenia);
+    if (!passwordVerificationValue) {
+      throw new NotFoundException(`Contraseña antigua incorrecta`);
+    }
+    const hashedPassword = await this.encryptPassword(contraseniaNueva);
+    beneficiario.contrasenia = hashedPassword;
+    return this.beneficiarioRepo.save(beneficiario);
+  }
   
   async encryptPassword(password: string): Promise<string> {
     const saltRounds = 10;
