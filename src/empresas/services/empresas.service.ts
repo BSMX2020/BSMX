@@ -126,10 +126,10 @@ export class EmpresasService {
     };
 
     const representanteLegal = await this.representantesLegalesService.createEmpresaDatos(representanteLegalObject);    
-    if (!representanteLegal) {
-      await this.removeEmpresaDatos(domicilio.id)
-      throw new BadRequestException(`Ya existe un representante legal con el CURP ${data.curpRepresentanteLegal}`);
-    }
+    // if (!representanteLegal) {
+    //   await this.removeEmpresaDatos(domicilio.id)
+    //   throw new BadRequestException(`Ya existe un representante legal con el CURP ${data.curpRepresentanteLegal}`);
+    // }
 
     // ----------------------------- Registro Beneficiario
 
