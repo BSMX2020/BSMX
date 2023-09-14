@@ -44,7 +44,7 @@ export class RepresentantesLegalesService {
 
     const representanteLegal = await this.representanteLegalRepo.findOne({ where: { curp: data.curp } });
     if (representanteLegal) {
-      return null;
+      return representanteLegal;
     }
 
     const newRepresentanteLegal = this.representanteLegalRepo.create(data);
